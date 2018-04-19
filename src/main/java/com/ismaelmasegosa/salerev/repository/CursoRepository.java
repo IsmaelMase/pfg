@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ismaelmasegosa.salerev.entities.Curso;
 
-@Repository
+@Repository("cursoRepository")
 public interface CursoRepository extends MongoRepository<Curso, String> {
 
 }

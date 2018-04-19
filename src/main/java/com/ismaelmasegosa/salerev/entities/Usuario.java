@@ -1,11 +1,14 @@
 package com.ismaelmasegosa.salerev.entities;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
-@Document(collection = "users")
-public class User {
+@Document(collection = "usuarios")
+public class Usuario {
 
 	@Id
     public String id;
@@ -21,8 +24,11 @@ public class User {
 	public String email;
 	
 	public String password;
+	
+	@DBRef
+	public List<Curso> cursos;
 
-	public User(String id, String nombre, String apellido, String dni, String telefono, String email, String password) {
+	public Usuario(String id, String nombre, String apellido, String dni, String telefono, String email, String password) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -33,7 +39,7 @@ public class User {
 		this.password = password;
 	}
 
-	public User() {
+	public Usuario() {
 		super();
 	}
 
@@ -91,6 +97,15 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
 	}
 
 	@Override

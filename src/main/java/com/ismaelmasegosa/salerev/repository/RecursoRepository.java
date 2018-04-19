@@ -7,8 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import com.ismaelmasegosa.salerev.entities.Recurso;
 
-@Repository
+@Repository("recursoRepository")
 public interface RecursoRepository extends MongoRepository<Recurso, String> {
 
 	public List<Recurso> findByTipo(String tipo);
+	
 }

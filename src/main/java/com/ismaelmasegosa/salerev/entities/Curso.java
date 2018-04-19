@@ -1,9 +1,7 @@
 package com.ismaelmasegosa.salerev.entities;
 
-import java.util.List;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "cursos")
@@ -13,9 +11,6 @@ public class Curso {
 	public String id;
 
 	public String nombre;
-
-	@DBRef(lazy = true)
-	public List<User> users;
 
 	public Curso(String id, String nombre) {
 		super();
@@ -45,8 +40,7 @@ public class Curso {
 
 	@Override
 	public String toString() {
-		return "Curso [id=" + id + ", nombre=" + nombre + ", users=" + users + "]";
+		return "Curso [id=" + id + ", nombre=" + nombre + "]";
 	}
-	
 
 }
