@@ -38,8 +38,9 @@ public class CursoController {
     public List<Curso> getAllCursos() {
         return cursoRepository.findAll();
     }
+	
 
-    @PostMapping(value = "/saveCurso", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/saveCurso")
     public boolean saveCurso(@Valid @RequestBody Curso curso) {
         return cursoService.addCurso(curso);
     }
