@@ -1,10 +1,20 @@
 package com.ismaelmasegosa.salerev.service;
 
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+
 import com.ismaelmasegosa.salerev.entities.Recurso;
 
 public interface RecursoService {
 	
-	public boolean addRecurso(Recurso u);
+	public List<Recurso> findAllRecursos();
+	
+	public List<Recurso> findAllAulas();
+	
+	public List<Recurso> findAll();
+	
+	public ResponseEntity<?> addRecurso(Recurso u);
 
-	public boolean removeRecurso(String id);
+	public ResponseEntity<?> removeRecurso(String id);
 }

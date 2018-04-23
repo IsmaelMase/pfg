@@ -10,19 +10,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Reserva {
 
 	@Id
-	String id;
+	public String id;
 
 	@DBRef
-	Usuario usuario;
+	public Usuario usuario;
 
-	Date fecha_inicio;
+	public Date fecha_inicio;
 
-	Date fecha_fin;
+	public Date fecha_fin;
 
 	@DBRef
-	Curso curso;
+	public Curso curso;
 
-	String anotacion;
+	public String anotacion;
 
 	public Reserva(String id, Usuario usuario, Date fecha_inicio, Date fecha_fin, Curso curso, String anotacion) {
 		super();

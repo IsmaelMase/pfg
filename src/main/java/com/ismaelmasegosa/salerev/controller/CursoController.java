@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,23 +31,20 @@ public class CursoController {
 	@Qualifier("cursoService")
 	private CursoServiceImpl cursoService;
 	
-	@Autowired
-	@Qualifier("cursoRepository")
-	private CursoRepository cursoRepository;
 	
 	@GetMapping(value = "/cursos")
     public List<Curso> getAllCursos() {
-        return cursoRepository.findAll();
+        return cursoService.findAll();
     }
 	
 
     @PostMapping(value = "/saveCurso")
-    public boolean saveCurso(@Valid @RequestBody Curso curso) {
+    public ResponseEntity<?> saveCurso(@Valid @RequestBody Curso curso) {
         return cursoService.addCurso(curso);
     }
     
     @DeleteMapping(value = "/removeCurso/{id}")
-    public boolean deleteCurso(@PathVariable("id") String id) {
+    public ResponseEntity<?> deleteCurso(@PathVariable("id") String id) {
     	return cursoService.removeCurso(id);
     }
 }

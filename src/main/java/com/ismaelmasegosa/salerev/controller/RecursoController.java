@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,32 +29,29 @@ public class RecursoController {
 	@Qualifier("recursoService")
 	private RecursoServiceImpl recursoService;
 	
-	@Autowired
-	@Qualifier("recursoRepository")
-	private RecursoRepository recursoRepository;
 	
 	@GetMapping(value = "/recursos")
     public List<Recurso> getAllRecursos() {
-        return recursoRepository.findByTipo("r");
+        return recursoService.findAllRecursos();
     }
 	
 	@GetMapping(value = "/aulas")
     public List<Recurso> getAllAulas() {
-        return recursoRepository.findByTipo("a");
+        return recursoService.findAllAulas();
     }
 	
 	@GetMapping(value = "/allRecursos")
     public List<Recurso> getAll() {
-        return recursoRepository.findAll();
+        return recursoService.findAll();
     }
 	
     @PostMapping(value = "/saveRecurso")
-    public boolean saveRecurso(@Valid @RequestBody Recurso recurso) {
+    public ResponseEntity<?> saveRecurso(@Valid @RequestBody Recurso recurso) {
         return recursoService.addRecurso(recurso);
     }
     
     @DeleteMapping(value = "/removeRecurso/{id}")
-    public boolean deleteRecurso(@PathVariable("id") String id) {
+    public ResponseEntity<?> deleteRecurso(@PathVariable("id") String id) {
     	return recursoService.removeRecurso(id);
     }
 	

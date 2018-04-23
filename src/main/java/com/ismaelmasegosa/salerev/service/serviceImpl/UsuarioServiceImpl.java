@@ -1,7 +1,11 @@
 package com.ismaelmasegosa.salerev.service.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ismaelmasegosa.salerev.entities.Usuario;
@@ -16,36 +20,43 @@ public class UsuarioServiceImpl implements UsuarioService {
 	private UsuarioRepository usuarioRepository;
 
 	@Override
-	public boolean addUsuario(Usuario u) {
+	public ResponseEntity<?> addUsuario(Usuario u) {
 		try {
 			Usuario uSave = usuarioRepository.save(u);
 
 			if (uSave == null) {
-				return false;
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 
-			return true;
+			return new ResponseEntity<>(HttpStatus.OK);
+
 		} catch (Exception e) {
 
-			return false;
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
 		}
 
 	}
 
 	@Override
-	public boolean removeUsuario(String id) {
+	public ResponseEntity<?> removeUsuario(String id) {
 		try {
 
 			usuarioRepository.deleteById(id);
 
-			return true;
+			return new ResponseEntity<>(HttpStatus.OK);
 
 		} catch (Exception e) {
 
-			return false;
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
 		}
+	}
+
+	@Override
+	public List<Usuario> findAll() {
+
+		return usuarioRepository.findAll();
 	}
 
 }

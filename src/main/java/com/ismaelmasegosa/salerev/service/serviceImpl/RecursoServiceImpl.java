@@ -1,7 +1,11 @@
 package com.ismaelmasegosa.salerev.service.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ismaelmasegosa.salerev.entities.Recurso;
@@ -16,35 +20,58 @@ public class RecursoServiceImpl implements RecursoService {
 	private RecursoRepository recursoRepository;
 
 	@Override
-	public boolean addRecurso(Recurso r) {
+	public ResponseEntity<?> addRecurso(Recurso r) {
 		try {
 			Recurso rSave = recursoRepository.save(r);
 
 			if (rSave == null) {
-				return false;
+				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			}
 
-			return true;
+			return new ResponseEntity<>(HttpStatus.OK);
+
 		} catch (Exception e) {
 
-			return false;
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
 		}
 
 	}
 
 	@Override
-	public boolean removeRecurso(String id) {
+	public ResponseEntity<?> removeRecurso(String id) {
 		try {
 
 			recursoRepository.deleteById(id);
 
-			return true;
+			return new ResponseEntity<>(HttpStatus.OK);
 
 		} catch (Exception e) {
 
-			return false;
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
 		}
 	}
+
+	@Override
+	public List<Recurso> findAllRecursos() {
+
+		return recursoRepository.findByTipo("r");
+		
+	}
+
+	@Override
+	public List<Recurso> findAllAulas() {
+		
+		return recursoRepository.findByTipo("a");
+
+	}
+
+	@Override
+	public List<Recurso> findAll() {
+		
+		return recursoRepository.findAll();
+
+	}
+
 }
