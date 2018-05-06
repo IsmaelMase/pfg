@@ -4,18 +4,20 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.ismaelmasegosa.salerev.entities.Reserva;
+import com.ismaelmasegosa.salerev.models.ReservaModel;
 
 public interface ReservaService {
-	
-	public List<Reserva> findAll();
-	
-	public List<Reserva> findByUsuario(String id);
-	
-	public List<Reserva> findByCurso(String id);
 
-	public ResponseEntity<?> addReserva(Reserva r);
-	
-	public ResponseEntity<?> removeReserva(String id);
-	
+	// public List<ReservaModel> findAll();
+	//
+	// public List<ReservaModel> findByUsuario(String id);
+	//
+	// public List<ReservaModel> findByRecurso(String id);
+	//
+	public List<String> getFechasNoDisponibles(List<String> horas, String idRecurso);
+
+	public ResponseEntity<String> addReserva(ReservaModel r);
+
+	public ResponseEntity<String> removeReserva(String id);
+
 }

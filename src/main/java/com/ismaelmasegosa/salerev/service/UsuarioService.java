@@ -5,13 +5,14 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import com.ismaelmasegosa.salerev.entities.Usuario;
+import com.ismaelmasegosa.salerev.models.UsuarioModel;
 
 public interface UsuarioService {
 	
-	public List<Usuario> findAll();
+	public List<UsuarioModel> findAll();
 
-	public ResponseEntity<?> addUsuario(Usuario u);
+	public ResponseEntity<UsuarioModel> addUsuario(UsuarioModel u);
 	
-	public ResponseEntity<?> removeUsuario(String id);
+	public ResponseEntity<String> removeUsuario(String id);
 	
 }

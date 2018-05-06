@@ -5,12 +5,13 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import com.ismaelmasegosa.salerev.entities.Curso;
+import com.ismaelmasegosa.salerev.models.CursoModel;
 
 public interface CursoService {
 	
-	public List<Curso> findAll();
+	public List<CursoModel> findAll();
 	
-	public ResponseEntity<?> addCurso(Curso u);
+	public ResponseEntity<CursoModel> addCurso(CursoModel u);
 
-	public ResponseEntity<?> removeCurso(String id);
+	public ResponseEntity<String> removeCurso(String id);
 }

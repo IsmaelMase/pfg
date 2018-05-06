@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ismaelmasegosa.salerev.entities.Recurso;
+import com.ismaelmasegosa.salerev.models.RecursoModel;
 import com.ismaelmasegosa.salerev.repository.RecursoRepository;
 import com.ismaelmasegosa.salerev.service.serviceImpl.RecursoServiceImpl;
 
@@ -28,31 +29,30 @@ public class RecursoController {
 	@Autowired
 	@Qualifier("recursoService")
 	private RecursoServiceImpl recursoService;
-	
-	
-	@GetMapping(value = "/recursos")
-    public List<Recurso> getAllRecursos() {
-        return recursoService.findAllRecursos();
-    }
-	
+
+	@GetMapping(value = "/otros")
+	public List<RecursoModel> getAllRecursos() {
+		return recursoService.findAllRecursos();
+	}
+
 	@GetMapping(value = "/aulas")
-    public List<Recurso> getAllAulas() {
-        return recursoService.findAllAulas();
-    }
-	
+	public List<RecursoModel> getAllAulas() {
+		return recursoService.findAllAulas();
+	}
+
 	@GetMapping(value = "/allRecursos")
-    public List<Recurso> getAll() {
-        return recursoService.findAll();
-    }
-	
-    @PostMapping(value = "/saveRecurso")
-    public ResponseEntity<?> saveRecurso(@Valid @RequestBody Recurso recurso) {
-        return recursoService.addRecurso(recurso);
-    }
-    
-    @DeleteMapping(value = "/removeRecurso/{id}")
-    public ResponseEntity<?> deleteRecurso(@PathVariable("id") String id) {
-    	return recursoService.removeRecurso(id);
-    }
-	
+	public List<RecursoModel> getAll() {
+		return recursoService.findAll();
+	}
+
+	@PostMapping(value = "/saveRecurso")
+	public ResponseEntity<RecursoModel> saveRecurso(@Valid @RequestBody RecursoModel recurso) {
+		return recursoService.addRecurso(recurso);
+	}
+
+	@DeleteMapping(value = "/removeRecurso/{id}")
+	public ResponseEntity<String> deleteRecurso(@PathVariable("id") String id) {
+		return recursoService.removeRecurso(id);
+	}
+
 }

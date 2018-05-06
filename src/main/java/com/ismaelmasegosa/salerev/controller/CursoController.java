@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ismaelmasegosa.salerev.entities.Curso;
+import com.ismaelmasegosa.salerev.models.CursoModel;
 import com.ismaelmasegosa.salerev.repository.CursoRepository;
 import com.ismaelmasegosa.salerev.service.serviceImpl.CursoServiceImpl;
 
@@ -33,18 +34,18 @@ public class CursoController {
 	
 	
 	@GetMapping(value = "/cursos")
-    public List<Curso> getAllCursos() {
+    public List<CursoModel> getAllCursos() {
         return cursoService.findAll();
     }
 	
 
     @PostMapping(value = "/saveCurso")
-    public ResponseEntity<?> saveCurso(@Valid @RequestBody Curso curso) {
+    public ResponseEntity<CursoModel> saveCurso(@Valid @RequestBody CursoModel curso) {
         return cursoService.addCurso(curso);
     }
     
     @DeleteMapping(value = "/removeCurso/{id}")
-    public ResponseEntity<?> deleteCurso(@PathVariable("id") String id) {
+    public ResponseEntity<String> deleteCurso(@PathVariable("id") String id) {
     	return cursoService.removeCurso(id);
     }
 }

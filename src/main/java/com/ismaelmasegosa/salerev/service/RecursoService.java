@@ -5,16 +5,17 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 
 import com.ismaelmasegosa.salerev.entities.Recurso;
+import com.ismaelmasegosa.salerev.models.RecursoModel;
 
 public interface RecursoService {
 	
-	public List<Recurso> findAllRecursos();
+	public List<RecursoModel> findAllRecursos();
 	
-	public List<Recurso> findAllAulas();
+	public List<RecursoModel> findAllAulas();
 	
-	public List<Recurso> findAll();
+	public List<RecursoModel> findAll();
 	
-	public ResponseEntity<?> addRecurso(Recurso u);
+	public ResponseEntity<RecursoModel> addRecurso(RecursoModel u);
 
-	public ResponseEntity<?> removeRecurso(String id);
+	public ResponseEntity<String> removeRecurso(String id);
 }

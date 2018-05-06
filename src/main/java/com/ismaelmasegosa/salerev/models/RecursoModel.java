@@ -1,25 +1,22 @@
-package com.ismaelmasegosa.salerev.entities;
+package com.ismaelmasegosa.salerev.models;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "recursos")
-public class Recurso {
+public class RecursoModel {
 
-	@Id
 	public String id;
 
 	public String nombre;
-	
+
 	public String tipo;
-	
+
 	public String datos;
-	
+
 	public String incidencia;
-	
+
 	public int capacidad;
 
-	public Recurso(String id, String nombre, String tipo, String datos, String incidencia, int capacidad) {
+	public RecursoModel(String id, String nombre, String tipo, String datos, String incidencia, int capacidad) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -29,7 +26,7 @@ public class Recurso {
 		this.capacidad = capacidad;
 	}
 
-	public Recurso() {
+	public RecursoModel() {
 		super();
 	}
 
@@ -79,12 +76,6 @@ public class Recurso {
 
 	public void setCapacidad(int capacidad) {
 		this.capacidad = capacidad;
-	}
-
-	@Override
-	public String toString() {
-		return "Recurso [id=" + id + ", nombre=" + nombre + ", tipo=" + tipo + ", datos=" + datos + ", incidencia="
-				+ incidencia + ", capacidad=" + capacidad + "]";
 	}
 	
 	

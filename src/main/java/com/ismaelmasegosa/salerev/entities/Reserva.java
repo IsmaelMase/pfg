@@ -1,7 +1,5 @@
 package com.ismaelmasegosa.salerev.entities;
 
-import java.sql.Date;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -15,22 +13,23 @@ public class Reserva {
 	@DBRef
 	public Usuario usuario;
 
-	public Date fecha_inicio;
-
-	public Date fecha_fin;
-
 	@DBRef
-	public Curso curso;
+	public Recurso recurso;
+
+	public String fecha;
+
+	public String intervalo;
 
 	public String anotacion;
 
-	public Reserva(String id, Usuario usuario, Date fecha_inicio, Date fecha_fin, Curso curso, String anotacion) {
+	public Reserva(String id, Usuario usuario, Recurso recurso, String fecha_reserva, String intervalo_reserva,
+			String anotacion) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
-		this.fecha_inicio = fecha_inicio;
-		this.fecha_fin = fecha_fin;
-		this.curso = curso;
+		this.recurso = recurso;
+		this.fecha = fecha_reserva;
+		this.intervalo = intervalo_reserva;
 		this.anotacion = anotacion;
 	}
 
@@ -54,28 +53,28 @@ public class Reserva {
 		this.usuario = usuario;
 	}
 
-	public Date getFecha_inicio() {
-		return fecha_inicio;
+	public Recurso getRecurso() {
+		return recurso;
 	}
 
-	public void setFecha_inicio(Date fecha_inicio) {
-		this.fecha_inicio = fecha_inicio;
+	public void setRecurso(Recurso recurso) {
+		this.recurso = recurso;
 	}
 
-	public Date getFecha_fin() {
-		return fecha_fin;
+	public String getFecha() {
+		return fecha;
 	}
 
-	public void setFecha_fin(Date fecha_fin) {
-		this.fecha_fin = fecha_fin;
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
 	}
 
-	public Curso getCurso() {
-		return curso;
+	public String getIntervalo() {
+		return intervalo;
 	}
 
-	public void setCurso(Curso curso) {
-		this.curso = curso;
+	public void setIntervalo(String intervalo) {
+		this.intervalo = intervalo;
 	}
 
 	public String getAnotacion() {
@@ -86,11 +85,4 @@ public class Reserva {
 		this.anotacion = anotacion;
 	}
 
-	@Override
-	public String toString() {
-		return "Reserva [id=" + id + ", usuario=" + usuario + ", fecha_inicio=" + fecha_inicio + ", fecha_fin="
-				+ fecha_fin + ", curso=" + curso + ", anotacion=" + anotacion + "]";
-	}
-	
-	
 }

@@ -1,5 +1,6 @@
 package com.ismaelmasegosa.salerev.service.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ismaelmasegosa.salerev.converter.RecursoConverter;
 import com.ismaelmasegosa.salerev.entities.Recurso;
+import com.ismaelmasegosa.salerev.models.CursoModel;
+import com.ismaelmasegosa.salerev.models.RecursoModel;
 import com.ismaelmasegosa.salerev.repository.RecursoRepository;
 import com.ismaelmasegosa.salerev.service.RecursoService;
 
@@ -19,16 +23,16 @@ public class RecursoServiceImpl implements RecursoService {
 	@Qualifier("recursoRepository")
 	private RecursoRepository recursoRepository;
 
+	@Autowired
+	@Qualifier("recursoConverter")
+	private RecursoConverter recursoConverter;
+
 	@Override
-	public ResponseEntity<?> addRecurso(Recurso r) {
+	public ResponseEntity<RecursoModel> addRecurso(RecursoModel r) {
 		try {
-			Recurso rSave = recursoRepository.save(r);
+			Recurso rSave = recursoRepository.save(recursoConverter.converterModelToEntity(r));
 
-			if (rSave == null) {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			}
-
-			return new ResponseEntity<>(HttpStatus.OK);
+			return new ResponseEntity<RecursoModel>(recursoConverter.converterEntityToModel(rSave), HttpStatus.CREATED);
 
 		} catch (Exception e) {
 
@@ -39,7 +43,7 @@ public class RecursoServiceImpl implements RecursoService {
 	}
 
 	@Override
-	public ResponseEntity<?> removeRecurso(String id) {
+	public ResponseEntity<String> removeRecurso(String id) {
 		try {
 
 			recursoRepository.deleteById(id);
@@ -54,24 +58,37 @@ public class RecursoServiceImpl implements RecursoService {
 	}
 
 	@Override
-	public List<Recurso> findAllRecursos() {
+	public List<RecursoModel> findAllRecursos() {
 
-		return recursoRepository.findByTipo("r");
-		
-	}
+		ArrayList<RecursoModel> recursosModel = new ArrayList<>();
+		for (Recurso r : recursoRepository.findByTipo("r")) {
+			recursosModel.add(recursoConverter.converterEntityToModel(r));
+		}
 
-	@Override
-	public List<Recurso> findAllAulas() {
-		
-		return recursoRepository.findByTipo("a");
+		return recursosModel;
 
 	}
 
 	@Override
-	public List<Recurso> findAll() {
-		
-		return recursoRepository.findAll();
+	public List<RecursoModel> findAllAulas() {
 
+		ArrayList<RecursoModel> recursosModel = new ArrayList<>();
+		for (Recurso r : recursoRepository.findByTipo("a")) {
+			recursosModel.add(recursoConverter.converterEntityToModel(r));
+		}
+
+		return recursosModel;
+	}
+
+	@Override
+	public List<RecursoModel> findAll() {
+
+		ArrayList<RecursoModel> recursosModel = new ArrayList<>();
+		for (Recurso r : recursoRepository.findAll()) {
+			recursosModel.add(recursoConverter.converterEntityToModel(r));
+		}
+
+		return recursosModel;
 	}
 
 }

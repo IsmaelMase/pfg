@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ismaelmasegosa.salerev.entities.Usuario;
+import com.ismaelmasegosa.salerev.models.UsuarioModel;
 import com.ismaelmasegosa.salerev.repository.UsuarioRepository;
 import com.ismaelmasegosa.salerev.service.serviceImpl.UsuarioServiceImpl;
 
@@ -30,17 +31,17 @@ public class UsuarioController {
 	private UsuarioServiceImpl usuarioService;
 
 	@GetMapping(value = "/usuarios")
-	public List<Usuario> getAllusuarios() {
+	public List<UsuarioModel> getAllusuarios() {
 		return usuarioService.findAll();
 	}
 
 	@PostMapping(value = "/saveUsuario")
-	public ResponseEntity<?> saveUsuario(@Valid @RequestBody Usuario usuario) {
+	public ResponseEntity<UsuarioModel> saveUsuario(@Valid @RequestBody UsuarioModel usuario) {
 		return usuarioService.addUsuario(usuario);
 	}
 
 	@DeleteMapping(value = "/removeUsuario/{id}")
-	public ResponseEntity<?> deleteUsuario(@PathVariable("id") String id) {
+	public ResponseEntity<String> deleteUsuario(@PathVariable("id") String id) {
 		return usuarioService.removeUsuario(id);
 	}
 

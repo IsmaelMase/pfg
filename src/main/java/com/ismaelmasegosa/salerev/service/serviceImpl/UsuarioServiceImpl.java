@@ -1,5 +1,6 @@
 package com.ismaelmasegosa.salerev.service.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ismaelmasegosa.salerev.converter.UsuarioConverter;
+import com.ismaelmasegosa.salerev.entities.Curso;
 import com.ismaelmasegosa.salerev.entities.Usuario;
+import com.ismaelmasegosa.salerev.models.CursoModel;
+import com.ismaelmasegosa.salerev.models.UsuarioModel;
 import com.ismaelmasegosa.salerev.repository.UsuarioRepository;
 import com.ismaelmasegosa.salerev.service.UsuarioService;
 
@@ -19,16 +24,17 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Qualifier("usuarioRepository")
 	private UsuarioRepository usuarioRepository;
 
+	@Autowired
+	@Qualifier("usuarioConverter")
+	private UsuarioConverter usuarioConverter;
+
 	@Override
-	public ResponseEntity<?> addUsuario(Usuario u) {
+	public ResponseEntity<UsuarioModel> addUsuario(UsuarioModel u) {
 		try {
-			Usuario uSave = usuarioRepository.save(u);
+			Usuario uSave = usuarioRepository.save(usuarioConverter.converterModelToEntity(u));
+	
 
-			if (uSave == null) {
-				return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-			}
-
-			return new ResponseEntity<>(HttpStatus.OK);
+			return new ResponseEntity<UsuarioModel>(usuarioConverter.converterEntityToModel(uSave), HttpStatus.CREATED);
 
 		} catch (Exception e) {
 
@@ -39,7 +45,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public ResponseEntity<?> removeUsuario(String id) {
+	public ResponseEntity<String> removeUsuario(String id) {
 		try {
 
 			usuarioRepository.deleteById(id);
@@ -54,9 +60,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public List<Usuario> findAll() {
+	public List<UsuarioModel> findAll() {
+		ArrayList<UsuarioModel> usuarioModel = new ArrayList<>();
+		for (Usuario u : usuarioRepository.findAll()) {
+			usuarioModel.add(usuarioConverter.converterEntityToModel(u));
+		}
 
-		return usuarioRepository.findAll();
+		return usuarioModel;
 	}
 
 }
