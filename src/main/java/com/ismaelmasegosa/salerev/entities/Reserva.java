@@ -16,20 +16,24 @@ public class Reserva {
 	@DBRef
 	public Recurso recurso;
 
+	@DBRef
+	public Curso curso;
+
 	public String fecha;
 
 	public String intervalo;
 
 	public String anotacion;
 
-	public Reserva(String id, Usuario usuario, Recurso recurso, String fecha_reserva, String intervalo_reserva,
+	public Reserva(String id, Usuario usuario, Recurso recurso, Curso curso, String fecha, String intervalo,
 			String anotacion) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
 		this.recurso = recurso;
-		this.fecha = fecha_reserva;
-		this.intervalo = intervalo_reserva;
+		this.curso = curso;
+		this.fecha = fecha;
+		this.intervalo = intervalo;
 		this.anotacion = anotacion;
 	}
 
@@ -83,6 +87,14 @@ public class Reserva {
 
 	public void setAnotacion(String anotacion) {
 		this.anotacion = anotacion;
+	}
+
+	public Curso getCurso() {
+		return curso;
+	}
+
+	public void setCurso(Curso curso) {
+		this.curso = curso;
 	}
 
 }

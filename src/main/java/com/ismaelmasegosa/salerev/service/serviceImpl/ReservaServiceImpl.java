@@ -2,6 +2,7 @@ package com.ismaelmasegosa.salerev.service.serviceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.ismaelmasegosa.salerev.converter.RecursoConverter;
 import com.ismaelmasegosa.salerev.converter.ReservaConverter;
+import com.ismaelmasegosa.salerev.entities.Recurso;
 import com.ismaelmasegosa.salerev.entities.Reserva;
 import com.ismaelmasegosa.salerev.models.ReservaModel;
 import com.ismaelmasegosa.salerev.repository.RecursoRepository;
@@ -115,25 +117,17 @@ public class ReservaServiceImpl implements ReservaService {
 	//
 	// }
 	//
-	// @Override
-	// public List<ReservaModel> findByRecurso(String id) {
-	//
-	// ArrayList<ReservaModel> reservasModel = new ArrayList<>();
-	//
-	// for (Reserva r :
-	// reservaRepository.findByRecurso(recursoRespository.findById(id))) {
-	// reservasModel.add(reservaConverter.converterEntityToModel(r));
-	// }
-	//
-	// return reservasModel;
-	//
-	// }
+	@Override
+	public List<ReservaModel> findByRecurso(String id) {
 
-	// @Override
-	// public List<String> getHorasDisponibles(LocalDateTime fecha) {
-	// ArrayList<String> reservasModel = new ArrayList<>();
-	//
-	// return null;
-	// }
+		ArrayList<ReservaModel> reservasModel = new ArrayList<>();
+		Optional<Recurso> re = recursoRespository.findById(id);
+		for (Reserva r : reservaRepository.findByRecurso(re)) {
+			reservasModel.add(reservaConverter.converterEntityToModel(r));
+		}
+
+		return reservasModel;
+
+	}
 
 }

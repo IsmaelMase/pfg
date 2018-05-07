@@ -17,6 +17,8 @@ public interface ReservaRepository extends MongoRepository<Reserva, String> {
 
 	public List<Reserva> findByIntervaloAndRecurso(String intervalo, Optional<Recurso> r);
 
+	public List<Reserva> findByRecurso(Optional<Recurso> r);
+
 	// public List<String>
 	// findDistinctFecha_reservaByIntervalo_reservaAndRecurso(List<String> horas,
 	// Recurso recurso);

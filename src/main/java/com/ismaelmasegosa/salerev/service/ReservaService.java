@@ -12,8 +12,8 @@ public interface ReservaService {
 	//
 	// public List<ReservaModel> findByUsuario(String id);
 	//
-	// public List<ReservaModel> findByRecurso(String id);
-	//
+	public List<ReservaModel> findByRecurso(String id);
+
 	public List<String> getFechasNoDisponibles(List<String> horas, String idRecurso);
 
 	public ResponseEntity<String> addReserva(ReservaModel r);

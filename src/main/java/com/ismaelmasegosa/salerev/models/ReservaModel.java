@@ -1,31 +1,29 @@
 package com.ismaelmasegosa.salerev.models;
 
-
-import java.time.LocalDateTime;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
+import java.util.ArrayList;
 
 import com.ismaelmasegosa.salerev.entities.Curso;
 import com.ismaelmasegosa.salerev.entities.Recurso;
 import com.ismaelmasegosa.salerev.entities.Usuario;
 
 public class ReservaModel {
-	
+
 	public String id;
 
 	public Usuario usuario;
 
 	public Recurso recurso;
 
-	public String[] fechas_reservas;
+	public Curso curso;
 
-	public String[] intervalos_reservas;
+	public ArrayList<String> fechas_reservas;
+
+	public ArrayList<String> intervalos_reservas;
 
 	public String anotacion;
 
-	public ReservaModel(String id, Usuario usuario, Recurso recurso, String[] fechas_reservas,
-			String[] intervalos_reservas, String anotacion) {
+	public ReservaModel(String id, Usuario usuario, Recurso recurso, ArrayList<String> fechas_reservas,
+			ArrayList<String> intervalos_reservas, String anotacion, Curso curso) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
@@ -33,6 +31,7 @@ public class ReservaModel {
 		this.fechas_reservas = fechas_reservas;
 		this.intervalos_reservas = intervalos_reservas;
 		this.anotacion = anotacion;
+		this.curso = curso;
 	}
 
 	public ReservaModel() {
@@ -63,19 +62,19 @@ public class ReservaModel {
 		this.recurso = recurso;
 	}
 
-	public String[] getFechas_reservas() {
+	public ArrayList<String> getFechas_reservas() {
 		return fechas_reservas;
 	}
 
-	public void setFechas_reservas(String[] fechas_reservas) {
+	public void setFechas_reservas(ArrayList<String> fechas_reservas) {
 		this.fechas_reservas = fechas_reservas;
 	}
 
-	public String[] getIntervalos_reservas() {
+	public ArrayList<String> getIntervalos_reservas() {
 		return intervalos_reservas;
 	}
 
-	public void setIntervalos_reservas(String[] intervalos_reservas) {
+	public void setIntervalos_reservas(ArrayList<String> intervalos_reservas) {
 		this.intervalos_reservas = intervalos_reservas;
 	}
 
@@ -87,10 +86,12 @@ public class ReservaModel {
 		this.anotacion = anotacion;
 	}
 
-	
+	public Curso getCurso() {
+		return curso;
+	}
 
-	
-	
+	public void setCurso(Curso curso) {
+		this.curso = curso;
+	}
+
 }
-
-

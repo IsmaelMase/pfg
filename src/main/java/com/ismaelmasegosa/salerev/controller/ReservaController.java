@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,11 +39,10 @@ public class ReservaController {
 	// return reservaService.findByUsuario(id);
 	// }
 	//
-	// @GetMapping(value = "/reservasByRecurso/{id}")
-	// public List<ReservaModel> getReservasByRecurso(@PathVariable("id") String id)
-	// {
-	// return reservaService.findByRecurso(id);
-	// }
+	@GetMapping(value = "/reservasByRecurso/{id}")
+	public List<ReservaModel> getReservasByRecurso(@PathVariable("id") String id) {
+		return reservaService.findByRecurso(id);
+	}
 
 	@PostMapping(value = "/getFechasDisponibles/{id}")
 	public List<String> getReservasByRecurso(@Valid @RequestBody List<String> horas, @PathVariable("id") String id) {
