@@ -39,9 +39,10 @@ public class ReservaController {
 	// return reservaService.findByUsuario(id);
 	// }
 	//
-	@GetMapping(value = "/reservasByRecurso/{id}")
-	public List<ReservaModel> getReservasByRecurso(@PathVariable("id") String id) {
-		return reservaService.findByRecurso(id);
+	@GetMapping(value = "/reservasByRecursoAndMes/{id}/{mes}")
+	public List<ReservaModel> getReservasByRecursoAndMes(@PathVariable("id") String id,
+			@PathVariable("mes") String mes) {
+		return reservaService.findByRecurso(id, mes);
 	}
 
 	@PostMapping(value = "/getFechasDisponibles/{id}")

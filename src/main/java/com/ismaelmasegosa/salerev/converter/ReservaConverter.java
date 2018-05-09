@@ -23,7 +23,7 @@ public class ReservaConverter {
 		rm.setRecurso(r.getRecurso());
 		rm.setUsuario(r.getUsuario());
 		rm.setAnotacion(r.getAnotacion());
-
+		rm.setCurso(r.getCurso());
 		return rm;
 
 	}

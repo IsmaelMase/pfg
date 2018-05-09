@@ -46,12 +46,17 @@ public class ReservaServiceImpl implements ReservaService {
 	@Override
 	public ResponseEntity<String> addReserva(ReservaModel r) {
 		try {
-			for (String fecha : r.getFechas_reservas()) {
-				for (String intervalo : r.getIntervalos_reservas()) {
-					Reserva rSave = reservaRepository
-							.save(reservaConverter.converterModelToEntity(r, fecha, intervalo));
-				}
-			}
+			r.getFechas_reservas().stream().forEach((f) -> {
+				r.getIntervalos_reservas().stream().forEach((i) -> {
+					reservaRepository.save(reservaConverter.converterModelToEntity(r, f, i));
+				});
+			});
+			// for (String fecha : r.getFechas_reservas()) {
+			// for (String intervalo : r.getIntervalos_reservas()) {
+			// Reserva rSave = reservaRepository
+			// .save(reservaConverter.converterModelToEntity(r, fecha, intervalo));
+			// }
+			// }
 
 			return new ResponseEntity<>(HttpStatus.CREATED);
 
@@ -118,11 +123,11 @@ public class ReservaServiceImpl implements ReservaService {
 	// }
 	//
 	@Override
-	public List<ReservaModel> findByRecurso(String id) {
+	public List<ReservaModel> findByRecurso(String id, String mes) {
 
 		ArrayList<ReservaModel> reservasModel = new ArrayList<>();
 		Optional<Recurso> re = recursoRespository.findById(id);
-		for (Reserva r : reservaRepository.findByRecurso(re)) {
+		for (Reserva r : reservaRepository.findByRecursoAndFechaContains(re, "/" + mes + "/")) {
 			reservasModel.add(reservaConverter.converterEntityToModel(r));
 		}
 
