@@ -11,5 +11,7 @@ import com.ismaelmasegosa.salerev.entities.Usuario;
 public interface UsuarioRepository extends MongoRepository<Usuario, String> {
 
 	public Optional<Usuario> findByDni(String dni);
-	
+
+	public Usuario findByEmail(String email);
+
 }

@@ -2,6 +2,7 @@ package com.ismaelmasegosa.salerev.service.serviceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,9 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ismaelmasegosa.salerev.converter.UsuarioConverter;
-import com.ismaelmasegosa.salerev.entities.Curso;
 import com.ismaelmasegosa.salerev.entities.Usuario;
-import com.ismaelmasegosa.salerev.models.CursoModel;
 import com.ismaelmasegosa.salerev.models.UsuarioModel;
 import com.ismaelmasegosa.salerev.repository.UsuarioRepository;
 import com.ismaelmasegosa.salerev.service.UsuarioService;
@@ -32,7 +31,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public ResponseEntity<UsuarioModel> addUsuario(UsuarioModel u) {
 		try {
 			Usuario uSave = usuarioRepository.save(usuarioConverter.converterModelToEntity(u));
-	
 
 			return new ResponseEntity<UsuarioModel>(usuarioConverter.converterEntityToModel(uSave), HttpStatus.CREATED);
 
@@ -67,6 +65,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 		}
 
 		return usuarioModel;
+	}
+
+	@Override
+	public Optional<Usuario> findByEmail(String email) {
+
+		return usuarioRepository.findById(email);
+
 	}
 
 }

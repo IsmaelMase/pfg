@@ -7,30 +7,30 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-
 @Document(collection = "usuarios")
 public class Usuario {
 
 	@Id
-    public String id;
-	
+	public String id;
+
 	public String nombre;
-	
+
 	public String apellido;
-	
+
 	@Indexed(unique = true)
 	public String dni;
-	
+
 	public String telefono;
-	
+
 	public String email;
-	
+
 	public String password;
-	
+
 	@DBRef
 	public List<Curso> cursos;
 
-	public Usuario(String id, String nombre, String apellido, String dni, String telefono, String email, String password) {
+	public Usuario(String id, String nombre, String apellido, String dni, String telefono, String email,
+			String password) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -43,6 +43,11 @@ public class Usuario {
 
 	public Usuario() {
 		super();
+	}
+
+	public Usuario(String email, String password, List<Object> emptyList) {
+		this.email = email;
+		this.password = password;
 	}
 
 	public String getId() {
@@ -101,7 +106,6 @@ public class Usuario {
 		this.password = password;
 	}
 
-	
 	public List<Curso> getCursos() {
 		return cursos;
 	}
@@ -115,7 +119,5 @@ public class Usuario {
 		return "User [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", telefono="
 				+ telefono + ", email=" + email + ", password=" + password + "]";
 	}
-	
-	
-	
+
 }
