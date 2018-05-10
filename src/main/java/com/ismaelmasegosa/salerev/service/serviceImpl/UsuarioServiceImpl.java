@@ -2,12 +2,12 @@ package com.ismaelmasegosa.salerev.service.serviceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ismaelmasegosa.salerev.converter.UsuarioConverter;
@@ -27,9 +27,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Qualifier("usuarioConverter")
 	private UsuarioConverter usuarioConverter;
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	@Override
 	public ResponseEntity<UsuarioModel> addUsuario(UsuarioModel u) {
 		try {
+			u.setPassword(passwordEncoder.encode(u.getPassword()));
 			Usuario uSave = usuarioRepository.save(usuarioConverter.converterModelToEntity(u));
 
 			return new ResponseEntity<UsuarioModel>(usuarioConverter.converterEntityToModel(uSave), HttpStatus.CREATED);
@@ -68,9 +72,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 
 	@Override
-	public Optional<Usuario> findByEmail(String email) {
+	public Usuario findByEmail(String email) {
 
-		return usuarioRepository.findById(email);
+		return usuarioRepository.findByEmail(email);
 
 	}
 

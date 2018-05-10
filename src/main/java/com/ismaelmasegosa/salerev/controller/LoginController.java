@@ -3,7 +3,6 @@ package com.ismaelmasegosa.salerev.controller;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,15 +15,14 @@ import com.ismaelmasegosa.salerev.models.UsuarioModel;
 import com.ismaelmasegosa.salerev.service.LoginService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/login")
 @CrossOrigin("*")
 public class LoginController {
 
 	@Autowired
-	@Qualifier("loginService")
 	private LoginService loginService;
 
-	@PostMapping(value = "/login")
+	@PostMapping
 	public ResponseEntity<HttpStatus> login(@RequestBody UsuarioModel usuarioModel, HttpServletResponse response) {
 		loginService.login(usuarioModel, response);
 		return new ResponseEntity<>(HttpStatus.OK);
