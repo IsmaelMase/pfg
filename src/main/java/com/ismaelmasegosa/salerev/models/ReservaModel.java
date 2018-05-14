@@ -24,7 +24,6 @@ public class ReservaModel {
 
 	public ReservaModel(String id, Usuario usuario, Recurso recurso, ArrayList<String> fechas_reservas,
 			ArrayList<String> intervalos_reservas, String anotacion, Curso curso) {
-		super();
 		this.id = id;
 		this.usuario = usuario;
 		this.recurso = recurso;
@@ -35,7 +34,6 @@ public class ReservaModel {
 	}
 
 	public ReservaModel() {
-		super();
 	}
 
 	public String getId() {

@@ -10,8 +10,8 @@ public interface ReservaService {
 
 	// public List<ReservaModel> findAll();
 	//
-	// public List<ReservaModel> findByUsuario(String id);
-	//
+	public List<ReservaModel> findByUsuarioAndFechaContains(String id, String mes);
+
 	public List<ReservaModel> findByRecurso(String id, String mes);
 
 	public List<String> getFechasNoDisponibles(List<String> horas, String idRecurso);

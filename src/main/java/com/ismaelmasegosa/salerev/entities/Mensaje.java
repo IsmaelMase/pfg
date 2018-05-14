@@ -9,21 +9,20 @@ public class Mensaje {
 
 	@Id
 	String id;
-	
+
 	@DBRef
 	Usuario emisor;
-	
+
 	@DBRef
 	Usuario receptor;
-	
+
 	String asunto;
-	
+
 	String cuerpo;
-	
+
 	String tipo;
 
 	public Mensaje(String id, Usuario emisor, Usuario receptor, String asunto, String cuerpo, String tipo) {
-		super();
 		this.id = id;
 		this.emisor = emisor;
 		this.receptor = receptor;
@@ -33,7 +32,6 @@ public class Mensaje {
 	}
 
 	public Mensaje() {
-		super();
 	}
 
 	public String getId() {
@@ -83,8 +81,5 @@ public class Mensaje {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	
-	
-	
-	
+
 }

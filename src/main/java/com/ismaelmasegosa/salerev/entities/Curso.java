@@ -1,6 +1,5 @@
 package com.ismaelmasegosa.salerev.entities;
 
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,13 +12,11 @@ public class Curso {
 	public String nombre;
 
 	public Curso(String id, String nombre) {
-		super();
 		this.id = id;
 		this.nombre = nombre;
 	}
 
 	public Curso() {
-		super();
 	}
 
 	public String getId() {

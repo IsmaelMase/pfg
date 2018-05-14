@@ -33,16 +33,16 @@ public class ReservaController {
 	// return reservaService.findAll();
 	// }
 	//
-	// @GetMapping(value = "/reservasByUsuario/{id}")
-	// public List<ReservaModel> getReservasByUsuario(@PathVariable("id") String id)
-	// {
-	// return reservaService.findByUsuario(id);
-	// }
-	//
-	@GetMapping(value = "/reservasByRecursoAndMes/{id}/{mes}")
-	public List<ReservaModel> getReservasByRecursoAndMes(@PathVariable("id") String id,
-			@PathVariable("mes") String mes) {
-		return reservaService.findByRecurso(id, mes);
+	@GetMapping(value = "/reservasByUsuarioAndFecha/{id}/{mes}/{year}")
+	public List<ReservaModel> getReservasByUsuario(@PathVariable("id") String id, @PathVariable("mes") String mes,
+			@PathVariable("year") String year) {
+		return reservaService.findByUsuarioAndFechaContains(id, mes + "/" + year);
+	}
+
+	@GetMapping(value = "/reservasByRecursoAndFecha/{id}/{mes}/{year}")
+	public List<ReservaModel> getReservasByRecursoAndMes(@PathVariable("id") String id, @PathVariable("mes") String mes,
+			@PathVariable("year") String year) {
+		return reservaService.findByRecurso(id, mes + "/" + year);
 	}
 
 	@PostMapping(value = "/getFechasDisponibles/{id}")

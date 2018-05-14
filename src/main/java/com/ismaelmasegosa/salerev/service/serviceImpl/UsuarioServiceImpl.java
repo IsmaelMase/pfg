@@ -64,7 +64,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public List<UsuarioModel> findAll() {
 		ArrayList<UsuarioModel> usuarioModel = new ArrayList<>();
-		for (Usuario u : usuarioRepository.findAll()) {
+		for (Usuario u : usuarioRepository.findByRol("ROL_PROFESOR")) {
 			usuarioModel.add(usuarioConverter.converterEntityToModel(u));
 		}
 

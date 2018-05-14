@@ -27,7 +27,6 @@ public class Reserva {
 
 	public Reserva(String id, Usuario usuario, Recurso recurso, Curso curso, String fecha, String intervalo,
 			String anotacion) {
-		super();
 		this.id = id;
 		this.usuario = usuario;
 		this.recurso = recurso;
@@ -38,7 +37,6 @@ public class Reserva {
 	}
 
 	public Reserva() {
-		super();
 	}
 
 	public String getId() {

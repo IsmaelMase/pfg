@@ -20,6 +20,7 @@ public class UsuarioConverter {
 		um.setTelefono(u.getTelefono());
 		um.setPassword(u.getPassword());
 		um.setCursos(u.getCursos());
+		um.setRol(u.getRol());
 
 		return um;
 	}
@@ -36,7 +37,7 @@ public class UsuarioConverter {
 		u.setTelefono(um.getTelefono());
 		u.setPassword(um.getPassword());
 		u.setCursos(um.getCursos());
-
+		u.setRol(um.getRol());
 		return u;
 	}
 }

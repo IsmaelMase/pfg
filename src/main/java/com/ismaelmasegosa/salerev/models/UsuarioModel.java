@@ -2,10 +2,6 @@ package com.ismaelmasegosa.salerev.models;
 
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-
 import com.ismaelmasegosa.salerev.entities.Curso;
 
 public class UsuarioModel {
@@ -26,9 +22,10 @@ public class UsuarioModel {
 
 	public List<Curso> cursos;
 
+	public String rol;
+
 	public UsuarioModel(String id, String nombre, String apellido, String dni, String telefono, String email,
-			String password, List<Curso> cursos) {
-		super();
+			String password, List<Curso> cursos, String rol) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -37,10 +34,10 @@ public class UsuarioModel {
 		this.email = email;
 		this.password = password;
 		this.cursos = cursos;
+		this.rol = rol;
 	}
 
 	public UsuarioModel() {
-		super();
 	}
 
 	public String getId() {
@@ -105,6 +102,14 @@ public class UsuarioModel {
 
 	public void setCursos(List<Curso> cursos) {
 		this.cursos = cursos;
+	}
+
+	public String getRol() {
+		return rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
 	}
 
 }

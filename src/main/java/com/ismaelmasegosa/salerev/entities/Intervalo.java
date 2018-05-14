@@ -7,19 +7,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "intervalos")
 public class Intervalo {
-	
+
 	@Id
 	public String id;
 
 	public List<String> intervalos;
 
 	public Intervalo(List<String> intervalos) {
-		super();
 		this.intervalos = intervalos;
 	}
 
 	public Intervalo() {
-		super();
 	}
 
 	public List<String> getIntervalos() {
@@ -37,6 +35,5 @@ public class Intervalo {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
 
 }

@@ -10,17 +10,16 @@ public class Recurso {
 	public String id;
 
 	public String nombre;
-	
+
 	public String tipo;
-	
+
 	public String datos;
-	
+
 	public String incidencia;
-	
+
 	public int capacidad;
 
 	public Recurso(String id, String nombre, String tipo, String datos, String incidencia, int capacidad) {
-		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.tipo = tipo;
@@ -30,7 +29,6 @@ public class Recurso {
 	}
 
 	public Recurso() {
-		super();
 	}
 
 	public String getId() {
@@ -86,6 +84,5 @@ public class Recurso {
 		return "Recurso [id=" + id + ", nombre=" + nombre + ", tipo=" + tipo + ", datos=" + datos + ", incidencia="
 				+ incidencia + ", capacidad=" + capacidad + "]";
 	}
-	
-	
+
 }

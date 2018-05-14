@@ -1,7 +1,5 @@
 package com.ismaelmasegosa.salerev.models;
 
-import org.springframework.data.annotation.Id;
-
 public class RecursoModel {
 
 	public String id;
@@ -17,7 +15,6 @@ public class RecursoModel {
 	public int capacidad;
 
 	public RecursoModel(String id, String nombre, String tipo, String datos, String incidencia, int capacidad) {
-		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.tipo = tipo;
@@ -27,7 +24,6 @@ public class RecursoModel {
 	}
 
 	public RecursoModel() {
-		super();
 	}
 
 	public String getId() {
@@ -77,6 +73,5 @@ public class RecursoModel {
 	public void setCapacidad(int capacidad) {
 		this.capacidad = capacidad;
 	}
-	
-	
+
 }

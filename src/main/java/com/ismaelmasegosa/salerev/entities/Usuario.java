@@ -26,12 +26,13 @@ public class Usuario {
 
 	public String password;
 
+	public String rol;
+
 	@DBRef
 	public List<Curso> cursos;
 
 	public Usuario(String id, String nombre, String apellido, String dni, String telefono, String email,
-			String password) {
-		super();
+			String password, String rol, List<Curso> cursos) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -39,10 +40,11 @@ public class Usuario {
 		this.telefono = telefono;
 		this.email = email;
 		this.password = password;
+		this.rol = rol;
+		this.cursos = cursos;
 	}
 
 	public Usuario() {
-		super();
 	}
 
 	public Usuario(String email, String password, List<Object> emptyList) {
@@ -112,6 +114,14 @@ public class Usuario {
 
 	public void setCursos(List<Curso> cursos) {
 		this.cursos = cursos;
+	}
+
+	public String getRol() {
+		return rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
 	}
 
 	@Override

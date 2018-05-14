@@ -5,6 +5,7 @@ import static com.ismaelmasegosa.salerev.auth.SecurityConstants.SIGN_UP_URL;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.BeanIds;
@@ -30,8 +31,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests().antMatchers(SIGN_UP_URL).permitAll().antMatchers(LOG_IN_URL)
-				.anonymous().anyRequest().authenticated().and()
+		http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll().antMatchers(SIGN_UP_URL)
+				.permitAll().antMatchers(LOG_IN_URL).anonymous().anyRequest().authenticated().and()
 				.addFilter(new JWTAuthorizationFilter(authenticationManager())).sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}

@@ -109,25 +109,24 @@ public class ReservaServiceImpl implements ReservaService {
 	// return reservasModel;
 	// }
 	//
-	// @Override
-	// public List<ReservaModel> findByUsuario(String id) {
-	// ArrayList<ReservaModel> reservasModel = new ArrayList<>();
-	//
-	// for (Reserva r :
-	// reservaRepository.findByUsuario(usuarioRespository.findById(id))) {
-	// reservasModel.add(reservaConverter.converterEntityToModel(r));
-	// }
-	//
-	// return reservasModel;
-	//
-	// }
-	//
+	@Override
+	public List<ReservaModel> findByUsuarioAndFechaContains(String id, String mes) {
+		ArrayList<ReservaModel> reservasModel = new ArrayList<>();
+
+		for (Reserva r : reservaRepository.findByUsuarioAndFechaContains(usuarioRespository.findById(id), "/" + mes)) {
+			reservasModel.add(reservaConverter.converterEntityToModel(r));
+		}
+
+		return reservasModel;
+
+	}
+
 	@Override
 	public List<ReservaModel> findByRecurso(String id, String mes) {
 
 		ArrayList<ReservaModel> reservasModel = new ArrayList<>();
 		Optional<Recurso> re = recursoRespository.findById(id);
-		for (Reserva r : reservaRepository.findByRecursoAndFechaContains(re, "/" + mes + "/")) {
+		for (Reserva r : reservaRepository.findByRecursoAndFechaContains(re, "/" + mes)) {
 			reservasModel.add(reservaConverter.converterEntityToModel(r));
 		}
 
