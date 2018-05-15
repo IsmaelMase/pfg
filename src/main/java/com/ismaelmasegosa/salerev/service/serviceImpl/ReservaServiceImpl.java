@@ -44,21 +44,17 @@ public class ReservaServiceImpl implements ReservaService {
 	private RecursoConverter recursoConverter;
 
 	@Override
-	public ResponseEntity<String> addReserva(ReservaModel r) {
+	public ResponseEntity<List<ReservaModel>> addReserva(ReservaModel r) {
+		List<ReservaModel> reservas = new ArrayList<>();
 		try {
 			r.getFechas_reservas().stream().forEach((f) -> {
 				r.getIntervalos_reservas().stream().forEach((i) -> {
-					reservaRepository.save(reservaConverter.converterModelToEntity(r, f, i));
+					Reserva reserva = reservaRepository.save(reservaConverter.converterModelToEntity(r, f, i));
+					reservas.add(reservaConverter.converterEntityToModel(reserva));
 				});
 			});
-			// for (String fecha : r.getFechas_reservas()) {
-			// for (String intervalo : r.getIntervalos_reservas()) {
-			// Reserva rSave = reservaRepository
-			// .save(reservaConverter.converterModelToEntity(r, fecha, intervalo));
-			// }
-			// }
 
-			return new ResponseEntity<>(HttpStatus.CREATED);
+			return new ResponseEntity<List<ReservaModel>>(reservas, HttpStatus.CREATED);
 
 		} catch (Exception e) {
 

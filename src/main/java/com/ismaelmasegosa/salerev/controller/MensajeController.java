@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ismaelmasegosa.salerev.entities.Mensaje;
+import com.ismaelmasegosa.salerev.models.MensajeModel;
 import com.ismaelmasegosa.salerev.service.serviceImpl.MensajeServiceImpl;
 
 @RestController
@@ -29,22 +30,22 @@ public class MensajeController {
 	private MensajeServiceImpl mensajeService;
 
 	@GetMapping("/mensaje")
-	public List<Mensaje> findMensajes() {
+	public List<MensajeModel> findMensajes() {
 		return mensajeService.findAll();
 	}
 
-	@GetMapping("/mensaje/{tipo}")
-	public List<Mensaje> findMensajesByTipo(@PathVariable("tipo") String tipo) {
-		return mensajeService.findByTipo(tipo);
+	@GetMapping("/mensaje/{id}")
+	public List<MensajeModel> findMensajesByTipo(@PathVariable("id") String id) {
+		return mensajeService.findByReceptor(id);
 	}
 
 	@PostMapping(value = "/sendMensaje")
-	public ResponseEntity<?> sendMensaje(@Valid @RequestBody Mensaje mensaje) {
+	public ResponseEntity<MensajeModel> sendMensaje(@Valid @RequestBody Mensaje mensaje) {
 		return mensajeService.sendMensaje(mensaje);
 	}
 
 	@DeleteMapping(value = "/removeMensaje/{id}")
-	public ResponseEntity<?> deleteCurso(@PathVariable("id") String id) {
+	public ResponseEntity<String> deleteCurso(@PathVariable("id") String id) {
 		return mensajeService.removeMensaje(id);
 	}
 

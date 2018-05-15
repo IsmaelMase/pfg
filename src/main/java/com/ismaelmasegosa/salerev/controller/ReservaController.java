@@ -32,7 +32,7 @@ public class ReservaController {
 	// public List<ReservaModel> getAllReservas() {
 	// return reservaService.findAll();
 	// }
-	//
+
 	@GetMapping(value = "/reservasByUsuarioAndFecha/{id}/{mes}/{year}")
 	public List<ReservaModel> getReservasByUsuario(@PathVariable("id") String id, @PathVariable("mes") String mes,
 			@PathVariable("year") String year) {
@@ -51,7 +51,7 @@ public class ReservaController {
 	}
 
 	@PostMapping(value = "/saveReserva")
-	public ResponseEntity<String> saveReserva(@Valid @RequestBody ReservaModel reservaModel) {
+	public ResponseEntity<List<ReservaModel>> saveReserva(@Valid @RequestBody ReservaModel reservaModel) {
 		return reservaService.addReserva(reservaModel);
 	}
 

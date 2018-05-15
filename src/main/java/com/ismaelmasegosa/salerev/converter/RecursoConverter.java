@@ -10,7 +10,7 @@ public class RecursoConverter {
 
 	public RecursoModel converterEntityToModel(Recurso r) {
 		RecursoModel rm = new RecursoModel();
-		if (!r.id.isEmpty()) {
+		if (!r.getId().isEmpty()) {
 			rm.setId(r.getId());
 		}
 		rm.setNombre(r.getNombre());
@@ -25,7 +25,7 @@ public class RecursoConverter {
 
 	public Recurso converterModelToEntity(RecursoModel rm) {
 		Recurso r = new Recurso();
-		if (!rm.id.isEmpty()) {
+		if (!rm.getId().isEmpty()) {
 			r.setId(rm.getId());
 		}
 		r.setNombre(rm.getNombre());

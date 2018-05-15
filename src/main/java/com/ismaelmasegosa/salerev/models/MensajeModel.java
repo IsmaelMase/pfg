@@ -1,19 +1,13 @@
-package com.ismaelmasegosa.salerev.entities;
+package com.ismaelmasegosa.salerev.models;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.ismaelmasegosa.salerev.entities.Usuario;
 
-@Document(collection = "mensajes")
-public class Mensaje {
+public class MensajeModel {
 
-	@Id
 	String id;
 
-	@DBRef
 	Usuario emisor;
 
-	@DBRef
 	Usuario receptor;
 
 	String cuerpo;
@@ -22,7 +16,7 @@ public class Mensaje {
 
 	boolean leido;
 
-	public Mensaje(String id, Usuario emisor, Usuario receptor, String cuerpo, String tipo, boolean leido) {
+	public MensajeModel(String id, Usuario emisor, Usuario receptor, String cuerpo, String tipo, boolean leido) {
 		this.id = id;
 		this.emisor = emisor;
 		this.receptor = receptor;
@@ -31,7 +25,7 @@ public class Mensaje {
 		this.leido = leido;
 	}
 
-	public Mensaje() {
+	public MensajeModel() {
 	}
 
 	public String getId() {
