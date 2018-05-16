@@ -66,7 +66,7 @@ public class MensajeServiceImpl implements MensajeService {
 		try {
 			Mensaje mSave = mensajeRepository.save(m);
 
-			return new ResponseEntity<MensajeModel>(mensajeConverter.converterEntityToModel(mSave), HttpStatus.OK);
+			return new ResponseEntity<MensajeModel>(mensajeConverter.converterEntityToModel(mSave), HttpStatus.CREATED);
 
 		} catch (Exception e) {
 

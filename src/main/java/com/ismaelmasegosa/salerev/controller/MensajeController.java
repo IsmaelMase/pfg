@@ -29,12 +29,12 @@ public class MensajeController {
 	@Qualifier("mensajeService")
 	private MensajeServiceImpl mensajeService;
 
-	@GetMapping("/mensaje")
+	@GetMapping("/mensajes")
 	public List<MensajeModel> findMensajes() {
 		return mensajeService.findAll();
 	}
 
-	@GetMapping("/mensaje/{id}")
+	@GetMapping("/mensajes/{id}")
 	public List<MensajeModel> findMensajesByTipo(@PathVariable("id") String id) {
 		return mensajeService.findByReceptor(id);
 	}

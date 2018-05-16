@@ -1,5 +1,7 @@
 package com.ismaelmasegosa.salerev.models;
 
+import java.util.List;
+
 import com.ismaelmasegosa.salerev.entities.Usuario;
 
 public class MensajeModel {
@@ -8,20 +10,24 @@ public class MensajeModel {
 
 	Usuario emisor;
 
-	Usuario receptor;
+	List<Usuario> receptor;
 
 	String cuerpo;
 
 	String tipo;
 
+	String fecha;
+
 	boolean leido;
 
-	public MensajeModel(String id, Usuario emisor, Usuario receptor, String cuerpo, String tipo, boolean leido) {
+	public MensajeModel(String id, Usuario emisor, List<Usuario> receptor, String cuerpo, String tipo, String fecha,
+			boolean leido) {
 		this.id = id;
 		this.emisor = emisor;
 		this.receptor = receptor;
 		this.cuerpo = cuerpo;
 		this.tipo = tipo;
+		this.fecha = fecha;
 		this.leido = leido;
 	}
 
@@ -44,11 +50,11 @@ public class MensajeModel {
 		this.emisor = emisor;
 	}
 
-	public Usuario getReceptor() {
+	public List<Usuario> getReceptor() {
 		return receptor;
 	}
 
-	public void setReceptor(Usuario receptor) {
+	public void setReceptor(List<Usuario> receptor) {
 		this.receptor = receptor;
 	}
 
@@ -74,6 +80,14 @@ public class MensajeModel {
 
 	public void setLeido(boolean leido) {
 		this.leido = leido;
+	}
+
+	public String getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
 	}
 
 }

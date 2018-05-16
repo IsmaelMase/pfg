@@ -1,5 +1,7 @@
 package com.ismaelmasegosa.salerev.entities;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -14,20 +16,24 @@ public class Mensaje {
 	Usuario emisor;
 
 	@DBRef
-	Usuario receptor;
+	List<Usuario> receptor;
 
 	String cuerpo;
 
 	String tipo;
 
+	String fecha;
+
 	boolean leido;
 
-	public Mensaje(String id, Usuario emisor, Usuario receptor, String cuerpo, String tipo, boolean leido) {
+	public Mensaje(String id, Usuario emisor, List<Usuario> receptor, String cuerpo, String tipo, String fecha,
+			boolean leido) {
 		this.id = id;
 		this.emisor = emisor;
 		this.receptor = receptor;
 		this.cuerpo = cuerpo;
 		this.tipo = tipo;
+		this.fecha = fecha;
 		this.leido = leido;
 	}
 
@@ -50,11 +56,11 @@ public class Mensaje {
 		this.emisor = emisor;
 	}
 
-	public Usuario getReceptor() {
+	public List<Usuario> getReceptor() {
 		return receptor;
 	}
 
-	public void setReceptor(Usuario receptor) {
+	public void setReceptor(List<Usuario> receptor) {
 		this.receptor = receptor;
 	}
 
@@ -80,6 +86,14 @@ public class Mensaje {
 
 	public void setLeido(boolean leido) {
 		this.leido = leido;
+	}
+
+	public String getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
 	}
 
 }

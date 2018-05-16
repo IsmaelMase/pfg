@@ -17,6 +17,8 @@ public class MensajeConverter {
 		mm.setEmisor(m.getEmisor());
 		mm.setReceptor(m.getReceptor());
 		mm.setLeido(m.isLeido());
+		mm.setFecha(m.getFecha());
+
 		return mm;
 	}
 
@@ -29,6 +31,7 @@ public class MensajeConverter {
 		m.setEmisor(mm.getEmisor());
 		m.setReceptor(mm.getReceptor());
 		m.setLeido(mm.isLeido());
+		m.setFecha(mm.getFecha());
 
 		return m;
 	}
