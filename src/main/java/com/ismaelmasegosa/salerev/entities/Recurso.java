@@ -1,6 +1,7 @@
 package com.ismaelmasegosa.salerev.entities;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "recursos")
@@ -19,13 +20,18 @@ public class Recurso {
 
 	public int capacidad;
 
-	public Recurso(String id, String nombre, String tipo, String datos, String incidencia, int capacidad) {
+	@DBRef
+	public Horario intervalo;
+
+	public Recurso(String id, String nombre, String tipo, String datos, String incidencia, int capacidad,
+			Horario intervalo) {
 		this.id = id;
 		this.nombre = nombre;
 		this.tipo = tipo;
 		this.datos = datos;
 		this.incidencia = incidencia;
 		this.capacidad = capacidad;
+		this.intervalo = intervalo;
 	}
 
 	public Recurso() {
@@ -77,6 +83,14 @@ public class Recurso {
 
 	public void setCapacidad(int capacidad) {
 		this.capacidad = capacidad;
+	}
+
+	public Horario getIntervalo() {
+		return intervalo;
+	}
+
+	public void setIntervalo(Horario intervalo) {
+		this.intervalo = intervalo;
 	}
 
 	@Override

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ismaelmasegosa.salerev.entities.Mensaje;
 import com.ismaelmasegosa.salerev.models.MensajeModel;
 import com.ismaelmasegosa.salerev.service.serviceImpl.MensajeServiceImpl;
 
@@ -40,7 +39,7 @@ public class MensajeController {
 	}
 
 	@PostMapping(value = "/sendMensaje")
-	public ResponseEntity<MensajeModel> sendMensaje(@Valid @RequestBody Mensaje mensaje) {
+	public ResponseEntity<MensajeModel> sendMensaje(@Valid @RequestBody MensajeModel mensaje) {
 		return mensajeService.sendMensaje(mensaje);
 	}
 

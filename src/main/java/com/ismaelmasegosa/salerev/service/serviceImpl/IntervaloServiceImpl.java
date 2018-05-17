@@ -1,5 +1,6 @@
 package com.ismaelmasegosa.salerev.service.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,30 +9,39 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.ismaelmasegosa.salerev.entities.Intervalo;
-import com.ismaelmasegosa.salerev.entities.Recurso;
-import com.ismaelmasegosa.salerev.models.RecursoModel;
+import com.ismaelmasegosa.salerev.converter.IntervaloConverter;
+import com.ismaelmasegosa.salerev.entities.Horario;
+import com.ismaelmasegosa.salerev.models.HorarioModel;
 import com.ismaelmasegosa.salerev.repository.IntervaloRepository;
 import com.ismaelmasegosa.salerev.service.IntervaloService;
 
 @Service("intervaloService")
 public class IntervaloServiceImpl implements IntervaloService {
-	
+
 	@Autowired
 	@Qualifier("intervaloRepository")
 	private IntervaloRepository intervaloRepository;
 
+	@Autowired
+	@Qualifier("intervaloConverter")
+	private IntervaloConverter intervaloConverter;
+
 	@Override
-	public List<String> findAll() {
-		return intervaloRepository.findAll().get(0).getIntervalos();
+	public List<HorarioModel> findAll() {
+		ArrayList<HorarioModel> intervalosModel = new ArrayList<>();
+		for (Horario i : intervaloRepository.findAll()) {
+			intervalosModel.add(intervaloConverter.converterEntityToModel(i));
+		}
+
+		return intervalosModel;
 	}
 
 	@Override
-	public ResponseEntity<String> addIntervalo(Intervalo in) {
+	public ResponseEntity<HorarioModel> addIntervalo(HorarioModel in) {
 		try {
-			Intervalo iSave = intervaloRepository.save(in);
+			Horario iSave = intervaloRepository.save(intervaloConverter.converterModelToEntity(in));
 
-			return new ResponseEntity<>(HttpStatus.CREATED);
+			return new ResponseEntity<>(intervaloConverter.converterEntityToModel(iSave), HttpStatus.CREATED);
 
 		} catch (Exception e) {
 
@@ -40,6 +50,19 @@ public class IntervaloServiceImpl implements IntervaloService {
 		}
 	}
 
-	
+	@Override
+	public ResponseEntity<String> removeIntervalo(String id) {
+		try {
+
+			intervaloRepository.deleteById(id);
+
+			return new ResponseEntity<>(HttpStatus.OK);
+
+		} catch (Exception e) {
+
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+		}
+	}
 
 }

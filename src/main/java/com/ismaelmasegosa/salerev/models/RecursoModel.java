@@ -1,5 +1,7 @@
 package com.ismaelmasegosa.salerev.models;
 
+import com.ismaelmasegosa.salerev.entities.Horario;
+
 public class RecursoModel {
 
 	public String id;
@@ -14,13 +16,17 @@ public class RecursoModel {
 
 	public int capacidad;
 
-	public RecursoModel(String id, String nombre, String tipo, String datos, String incidencia, int capacidad) {
+	public Horario intevalo;
+
+	public RecursoModel(String id, String nombre, String tipo, String datos, String incidencia, int capacidad,
+			Horario intevalo) {
 		this.id = id;
 		this.nombre = nombre;
 		this.tipo = tipo;
 		this.datos = datos;
 		this.incidencia = incidencia;
 		this.capacidad = capacidad;
+		this.intevalo = intevalo;
 	}
 
 	public RecursoModel() {
@@ -72,6 +78,14 @@ public class RecursoModel {
 
 	public void setCapacidad(int capacidad) {
 		this.capacidad = capacidad;
+	}
+
+	public Horario getIntevalo() {
+		return intevalo;
+	}
+
+	public void setIntevalo(Horario intevalo) {
+		this.intevalo = intevalo;
 	}
 
 }

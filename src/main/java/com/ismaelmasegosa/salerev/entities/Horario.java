@@ -6,18 +6,21 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "intervalos")
-public class Intervalo {
+public class Horario {
 
 	@Id
 	public String id;
 
+	public String nombre;
+
 	public List<String> intervalos;
 
-	public Intervalo(List<String> intervalos) {
+	public Horario(String nombre, List<String> intervalos) {
+		this.nombre = nombre;
 		this.intervalos = intervalos;
 	}
 
-	public Intervalo() {
+	public Horario() {
 	}
 
 	public List<String> getIntervalos() {
@@ -34,6 +37,19 @@ public class Intervalo {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	@Override
+	public String toString() {
+		return "Horario [id=" + id + ", nombre=" + nombre + ", intervalos=" + intervalos + "]";
 	}
 
 }

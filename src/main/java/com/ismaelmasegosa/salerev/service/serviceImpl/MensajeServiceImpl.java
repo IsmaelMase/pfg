@@ -62,9 +62,9 @@ public class MensajeServiceImpl implements MensajeService {
 	}
 
 	@Override
-	public ResponseEntity<MensajeModel> sendMensaje(Mensaje m) {
+	public ResponseEntity<MensajeModel> sendMensaje(MensajeModel m) {
 		try {
-			Mensaje mSave = mensajeRepository.save(m);
+			Mensaje mSave = mensajeRepository.save(mensajeConverter.converteModelToEntity(m));
 
 			return new ResponseEntity<MensajeModel>(mensajeConverter.converterEntityToModel(mSave), HttpStatus.CREATED);
 

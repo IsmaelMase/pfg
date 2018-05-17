@@ -10,21 +10,21 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Mensaje {
 
 	@Id
-	String id;
+	public String id;
 
 	@DBRef
-	Usuario emisor;
+	public Usuario emisor;
 
 	@DBRef
-	List<Usuario> receptor;
+	public List<Usuario> receptor;
 
-	String cuerpo;
+	public String cuerpo;
 
-	String tipo;
+	public String tipo;
 
-	String fecha;
+	public String fecha;
 
-	boolean leido;
+	public boolean leido;
 
 	public Mensaje(String id, Usuario emisor, List<Usuario> receptor, String cuerpo, String tipo, String fecha,
 			boolean leido) {
