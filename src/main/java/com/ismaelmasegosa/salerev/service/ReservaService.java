@@ -1,6 +1,7 @@
 package com.ismaelmasegosa.salerev.service;
 
 import java.util.List;
+import java.util.TreeMap;
 
 import org.springframework.http.ResponseEntity;
 
@@ -12,7 +13,9 @@ public interface ReservaService {
 	//
 	public List<ReservaModel> findByUsuarioAndFechaContains(String id, String mes);
 
-	public List<ReservaModel> findByRecurso(String id, String mes);
+	public TreeMap<Integer, List<String>> findByRecursoAndFechasContains(String id, List<String> fechas);
+
+	public List<ReservaModel> findByRecursoAndFecha(String id, String mes);
 
 	public List<String> getFechasNoDisponibles(List<String> horas, String idRecurso);
 

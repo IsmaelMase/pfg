@@ -16,17 +16,17 @@ public class RecursoModel {
 
 	public int capacidad;
 
-	public Horario intevalo;
+	public Horario intervalo;
 
 	public RecursoModel(String id, String nombre, String tipo, String datos, String incidencia, int capacidad,
-			Horario intevalo) {
+			Horario intervalo) {
 		this.id = id;
 		this.nombre = nombre;
 		this.tipo = tipo;
 		this.datos = datos;
 		this.incidencia = incidencia;
 		this.capacidad = capacidad;
-		this.intevalo = intevalo;
+		this.intervalo = intervalo;
 	}
 
 	public RecursoModel() {
@@ -80,12 +80,12 @@ public class RecursoModel {
 		this.capacidad = capacidad;
 	}
 
-	public Horario getIntevalo() {
-		return intevalo;
+	public Horario getIntervalo() {
+		return intervalo;
 	}
 
-	public void setIntevalo(Horario intevalo) {
-		this.intevalo = intevalo;
+	public void setIntervalo(Horario intevalo) {
+		this.intervalo = intevalo;
 	}
 
 }

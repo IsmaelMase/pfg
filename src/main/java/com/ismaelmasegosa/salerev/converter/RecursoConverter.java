@@ -20,6 +20,8 @@ public class RecursoConverter {
 			rm.setCapacidad(r.getCapacidad());
 		}
 		rm.setIncidencia(r.getIncidencia());
+		rm.setIntervalo(r.getIntervalo());
+
 		return rm;
 	}
 
@@ -35,6 +37,7 @@ public class RecursoConverter {
 			r.setCapacidad(rm.getCapacidad());
 		}
 		r.setIncidencia(rm.getIncidencia());
+		r.setIntervalo(rm.getIntervalo());
 
 		return r;
 	}

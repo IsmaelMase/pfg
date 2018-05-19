@@ -1,6 +1,7 @@
 package com.ismaelmasegosa.salerev.controller;
 
 import java.util.List;
+import java.util.TreeMap;
 
 import javax.validation.Valid;
 
@@ -42,7 +43,13 @@ public class ReservaController {
 	@GetMapping(value = "/reservasByRecursoAndFecha/{id}/{mes}/{year}")
 	public List<ReservaModel> getReservasByRecursoAndMes(@PathVariable("id") String id, @PathVariable("mes") String mes,
 			@PathVariable("year") String year) {
-		return reservaService.findByRecurso(id, mes + "/" + year);
+		return reservaService.findByRecursoAndFecha(id, mes + "/" + year);
+	}
+
+	@PostMapping(value = "/reservasByRecursoAndFechas/{id}")
+	public TreeMap<Integer, List<String>> getReservasByRecursoAndMes(@PathVariable("id") String id,
+			@Valid @RequestBody List<String> horas) {
+		return reservaService.findByRecursoAndFechasContains(id, horas);
 	}
 
 	@PostMapping(value = "/getFechasDisponibles/{id}")

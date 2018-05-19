@@ -3,6 +3,7 @@ package com.ismaelmasegosa.salerev.service.serviceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -118,7 +119,7 @@ public class ReservaServiceImpl implements ReservaService {
 	}
 
 	@Override
-	public List<ReservaModel> findByRecurso(String id, String mes) {
+	public List<ReservaModel> findByRecursoAndFecha(String id, String mes) {
 
 		ArrayList<ReservaModel> reservasModel = new ArrayList<>();
 		Optional<Recurso> re = recursoRespository.findById(id);
@@ -128,6 +129,28 @@ public class ReservaServiceImpl implements ReservaService {
 
 		return reservasModel;
 
+	}
+
+	@Override
+	public TreeMap<Integer, List<String>> findByRecursoAndFechasContains(String id, List<String> fechas) {
+		TreeMap<Integer, List<String>> tablaReservas = new TreeMap<>();
+		ArrayList<String> reservasTabla = new ArrayList<>();
+		int cont = 0;
+		fechas.add(0, "Horas");
+		tablaReservas.put(cont, fechas);
+		Recurso re = recursoRespository.findById(id).get();
+		for (String hora : re.getIntervalo().getIntervalos()) {
+			cont++;
+			reservasTabla = new ArrayList<>();
+			reservasTabla.add(hora);
+			for (String fecha : fechas) {
+				for (Reserva r : reservaRepository.findByRecursoAndFechaAndIntervalo(re, fecha, hora)) {
+					reservasTabla.add(r.getUsuario().getNombre() + " " + r.getCurso().getNombre());
+				}
+			}
+			tablaReservas.put(cont, reservasTabla);
+		}
+		return tablaReservas;
 	}
 
 }
