@@ -82,30 +82,19 @@ public class ReservaServiceImpl implements ReservaService {
 
 	@Override
 	public List<String> getFechasNoDisponibles(List<String> horas, String idRecurso) {
-		List<String> fechas_disponibles = new ArrayList<String>();
+		List<String> fechas_NoDisponibles = new ArrayList<String>();
 		for (String hora : horas) {
 			for (Reserva reserva : reservaRepository.findByIntervaloAndRecurso(hora,
 					recursoRespository.findById(idRecurso))) {
-				if (!fechas_disponibles.contains(reserva.fecha)) {
-					fechas_disponibles.add(reserva.fecha);
+				if (!fechas_NoDisponibles.contains(reserva.fecha)) {
+					fechas_NoDisponibles.add(reserva.fecha);
 				}
 
 			}
 		}
-		return fechas_disponibles;
+		return fechas_NoDisponibles;
 	}
 
-	// @Override
-	// public List<ReservaModel> findAll() {
-	// ArrayList<ReservaModel> reservasModel = new ArrayList<>();
-	//
-	// for (Reserva r : reservaRepository.findAll()) {
-	// reservasModel.add(reservaConverter.converterEntityToModel(r));
-	// }
-	//
-	// return reservasModel;
-	// }
-	//
 	@Override
 	public List<ReservaModel> findByUsuarioAndFechaContains(String id, String mes) {
 		ArrayList<ReservaModel> reservasModel = new ArrayList<>();
@@ -145,12 +134,27 @@ public class ReservaServiceImpl implements ReservaService {
 			reservasTabla.add(hora);
 			for (String fecha : fechas) {
 				for (Reserva r : reservaRepository.findByRecursoAndFechaAndIntervalo(re, fecha, hora)) {
-					reservasTabla.add(r.getUsuario().getNombre() + " " + r.getCurso().getNombre());
+					if (r != null) {
+						reservasTabla.add(r.getUsuario().getNombre() + " " + r.getCurso().getNombre());
+					} else {
+						reservasTabla.add("");
+					}
 				}
 			}
 			tablaReservas.put(cont, reservasTabla);
 		}
 		return tablaReservas;
+	}
+
+	@Override
+	public List<String> getHorasNoDisponibles(String fecha, String idRecurso) {
+		Optional<Recurso> re = recursoRespository.findById(idRecurso);
+		for (Reserva reserva : reservaRepository.findByRecursoAndFechaContains(re, fecha)) {
+			re.get().getIntervalo().getIntervalos().remove(reserva.getIntervalo());
+
+		}
+
+		return re.get().getIntervalo().getIntervalos();
 	}
 
 }

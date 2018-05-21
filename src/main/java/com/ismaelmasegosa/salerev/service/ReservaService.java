@@ -19,6 +19,8 @@ public interface ReservaService {
 
 	public List<String> getFechasNoDisponibles(List<String> horas, String idRecurso);
 
+	public List<String> getHorasNoDisponibles(String fecha, String idRecurso);
+
 	public ResponseEntity<List<ReservaModel>> addReserva(ReservaModel r);
 
 	public ResponseEntity<String> removeReserva(String id);

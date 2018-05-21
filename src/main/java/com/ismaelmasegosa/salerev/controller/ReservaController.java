@@ -53,8 +53,13 @@ public class ReservaController {
 	}
 
 	@PostMapping(value = "/getFechasDisponibles/{id}")
-	public List<String> getReservasByRecurso(@Valid @RequestBody List<String> horas, @PathVariable("id") String id) {
+	public List<String> getFechasNoDisponibles(@Valid @RequestBody List<String> horas, @PathVariable("id") String id) {
 		return reservaService.getFechasNoDisponibles(horas, id);
+	}
+
+	@PostMapping(value = "/getHorasNoDisponibles/{id}")
+	public List<String> getHorasDisponibles(@Valid @RequestBody String fecha, @PathVariable("id") String id) {
+		return reservaService.getHorasNoDisponibles(fecha, id);
 	}
 
 	@PostMapping(value = "/saveReserva")
