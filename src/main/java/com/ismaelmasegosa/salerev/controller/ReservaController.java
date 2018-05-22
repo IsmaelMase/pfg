@@ -46,6 +46,12 @@ public class ReservaController {
 		return reservaService.findByRecursoAndFecha(id, mes + "/" + year);
 	}
 
+	@PostMapping(value = "/reservasByRecursoAndFecha/{id}")
+	public List<ReservaModel> getReservasByRecursoAndFecha(@PathVariable("id") String id,
+			@Valid @RequestBody String horas) {
+		return reservaService.findByRecursoAndfilterByFecha(id, horas);
+	}
+
 	@PostMapping(value = "/reservasByRecursoAndFechas/{id}")
 	public TreeMap<Integer, List<String>> getReservasByRecursoAndMes(@PathVariable("id") String id,
 			@Valid @RequestBody List<String> horas) {

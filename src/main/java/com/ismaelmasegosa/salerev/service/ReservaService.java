@@ -17,6 +17,8 @@ public interface ReservaService {
 
 	public List<ReservaModel> findByRecursoAndFecha(String id, String mes);
 
+	public List<ReservaModel> findByRecursoAndfilterByFecha(String id, String fecha);
+
 	public List<String> getFechasNoDisponibles(List<String> horas, String idRecurso);
 
 	public List<String> getHorasNoDisponibles(String fecha, String idRecurso);

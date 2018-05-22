@@ -125,36 +125,56 @@ public class ReservaServiceImpl implements ReservaService {
 		TreeMap<Integer, List<String>> tablaReservas = new TreeMap<>();
 		ArrayList<String> reservasTabla = new ArrayList<>();
 		int cont = 0;
-		fechas.add(0, "Horas");
-		tablaReservas.put(cont, fechas);
 		Recurso re = recursoRespository.findById(id).get();
 		for (String hora : re.getIntervalo().getIntervalos()) {
 			cont++;
 			reservasTabla = new ArrayList<>();
 			reservasTabla.add(hora);
 			for (String fecha : fechas) {
-				for (Reserva r : reservaRepository.findByRecursoAndFechaAndIntervalo(re, fecha, hora)) {
-					if (r != null) {
-						reservasTabla.add(r.getUsuario().getNombre() + " " + r.getCurso().getNombre());
-					} else {
-						reservasTabla.add("");
+				List<Reserva> reservas = reservaRepository.findByRecursoAndFechaAndIntervalo(re, fecha, hora);
+				if (reservas.size() > 0) {
+					for (Reserva r : reservas) {
+						if (r != null) {
+							reservasTabla.add(r.getUsuario().getNombre() + " " + r.getCurso().getNombre());
+						}
 					}
+				} else {
+					reservasTabla.add("");
+
 				}
 			}
 			tablaReservas.put(cont, reservasTabla);
 		}
+		fechas.add(0, "Horas");
+		tablaReservas.put(0, fechas);
 		return tablaReservas;
 	}
 
 	@Override
 	public List<String> getHorasNoDisponibles(String fecha, String idRecurso) {
 		Optional<Recurso> re = recursoRespository.findById(idRecurso);
-		for (Reserva reserva : reservaRepository.findByRecursoAndFechaContains(re, fecha)) {
-			re.get().getIntervalo().getIntervalos().remove(reserva.getIntervalo());
-
+		List<String> intervalos = re.get().getIntervalo().getIntervalos();
+		fecha = fecha.replace("\"", "");
+		List<Reserva> reservas = reservaRepository.findByRecursoAndFechaContains(re, fecha);
+		if (reservas.size() > 0) {
+			for (Reserva reserva : reservas) {
+				intervalos.remove(reserva.getIntervalo());
+			}
 		}
 
-		return re.get().getIntervalo().getIntervalos();
+		return intervalos;
+	}
+
+	@Override
+	public List<ReservaModel> findByRecursoAndfilterByFecha(String id, String fecha) {
+		ArrayList<ReservaModel> reservasModel = new ArrayList<>();
+		Optional<Recurso> re = recursoRespository.findById(id);
+		fecha = fecha.replace("\"", "");
+		for (Reserva r : reservaRepository.findByRecursoAndFechaContains(re, fecha)) {
+			reservasModel.add(reservaConverter.converterEntityToModel(r));
+		}
+
+		return reservasModel;
 	}
 
 }
