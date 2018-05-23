@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,26 +33,19 @@ public class ReservaController {
 	// return reservaService.findAll();
 	// }
 
-	@GetMapping(value = "/reservasByUsuarioAndFecha/{id}/{mes}/{year}")
-	public List<ReservaModel> getReservasByUsuario(@PathVariable("id") String id, @PathVariable("mes") String mes,
-			@PathVariable("year") String year) {
-		return reservaService.findByUsuarioAndFechaContains(id, mes + "/" + year);
-	}
-
-	@GetMapping(value = "/reservasByRecursoAndFecha/{id}/{mes}/{year}")
-	public List<ReservaModel> getReservasByRecursoAndMes(@PathVariable("id") String id, @PathVariable("mes") String mes,
-			@PathVariable("year") String year) {
-		return reservaService.findByRecursoAndFecha(id, mes + "/" + year);
+	@PostMapping(value = "/reservasByUsuarioAndFecha/{id}")
+	public List<ReservaModel> getReservasByUsuario(@PathVariable("id") String id, @Valid @RequestBody String fecha) {
+		return reservaService.findByUsuarioAndFecha(id, fecha);
 	}
 
 	@PostMapping(value = "/reservasByRecursoAndFecha/{id}")
 	public List<ReservaModel> getReservasByRecursoAndFecha(@PathVariable("id") String id,
-			@Valid @RequestBody String horas) {
-		return reservaService.findByRecursoAndfilterByFecha(id, horas);
+			@Valid @RequestBody String fecha) {
+		return reservaService.findByRecursoAndfilterByFecha(id, fecha);
 	}
 
-	@PostMapping(value = "/reservasByRecursoAndFechas/{id}")
-	public TreeMap<Integer, List<String>> getReservasByRecursoAndMes(@PathVariable("id") String id,
+	@PostMapping(value = "/generarTabla/{id}")
+	public TreeMap<Integer, List<String>> generarTabla(@PathVariable("id") String id,
 			@Valid @RequestBody List<String> horas) {
 		return reservaService.findByRecursoAndFechasContains(id, horas);
 	}

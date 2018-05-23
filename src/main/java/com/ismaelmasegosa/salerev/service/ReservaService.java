@@ -11,11 +11,14 @@ public interface ReservaService {
 
 	// public List<ReservaModel> findAll();
 	//
-	public List<ReservaModel> findByUsuarioAndFechaContains(String id, String mes);
+	// public List<ReservaModel> findByUsuarioAndFechaContains(String id, String
+	// fecha);
+
+	public List<ReservaModel> findByUsuarioAndFecha(String id, String fecha);
 
 	public TreeMap<Integer, List<String>> findByRecursoAndFechasContains(String id, List<String> fechas);
 
-	public List<ReservaModel> findByRecursoAndFecha(String id, String mes);
+	// public List<ReservaModel> findByRecursoAndFecha(String id, String mes);
 
 	public List<ReservaModel> findByRecursoAndfilterByFecha(String id, String fecha);
 

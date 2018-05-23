@@ -95,11 +95,27 @@ public class ReservaServiceImpl implements ReservaService {
 		return fechas_NoDisponibles;
 	}
 
-	@Override
-	public List<ReservaModel> findByUsuarioAndFechaContains(String id, String mes) {
-		ArrayList<ReservaModel> reservasModel = new ArrayList<>();
+	// @Override
+	// public List<ReservaModel> findByUsuarioAndFechaContains(String id, String
+	// fecha) {
+	// ArrayList<ReservaModel> reservasModel = new ArrayList<>();
+	//
+	// for (Reserva r :
+	// reservaRepository.findByUsuarioAndFechaContains(usuarioRespository.findById(id),
+	// "/" + fecha)) {
+	// reservasModel.add(reservaConverter.converterEntityToModel(r));
+	// }
+	//
+	// return reservasModel;
+	//
+	// }
 
-		for (Reserva r : reservaRepository.findByUsuarioAndFechaContains(usuarioRespository.findById(id), "/" + mes)) {
+	@Override
+	public List<ReservaModel> findByUsuarioAndFecha(String id, String fecha) {
+		ArrayList<ReservaModel> reservasModel = new ArrayList<>();
+		fecha = fecha.replace("\"", "");
+		for (Reserva r : reservaRepository.findByUsuarioAndFechaContains(usuarioRespository.findById(id),
+				"/" + fecha)) {
 			reservasModel.add(reservaConverter.converterEntityToModel(r));
 		}
 
@@ -107,18 +123,19 @@ public class ReservaServiceImpl implements ReservaService {
 
 	}
 
-	@Override
-	public List<ReservaModel> findByRecursoAndFecha(String id, String mes) {
-
-		ArrayList<ReservaModel> reservasModel = new ArrayList<>();
-		Optional<Recurso> re = recursoRespository.findById(id);
-		for (Reserva r : reservaRepository.findByRecursoAndFechaContains(re, "/" + mes)) {
-			reservasModel.add(reservaConverter.converterEntityToModel(r));
-		}
-
-		return reservasModel;
-
-	}
+	// @Override
+	// public List<ReservaModel> findByRecursoAndFecha(String id, String mes) {
+	//
+	// ArrayList<ReservaModel> reservasModel = new ArrayList<>();
+	// Optional<Recurso> re = recursoRespository.findById(id);
+	// for (Reserva r : reservaRepository.findByRecursoAndFechaContains(re, "/" +
+	// mes)) {
+	// reservasModel.add(reservaConverter.converterEntityToModel(r));
+	// }
+	//
+	// return reservasModel;
+	//
+	// }
 
 	@Override
 	public TreeMap<Integer, List<String>> findByRecursoAndFechasContains(String id, List<String> fechas) {
