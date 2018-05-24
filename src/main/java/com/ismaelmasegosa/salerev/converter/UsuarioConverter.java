@@ -21,6 +21,7 @@ public class UsuarioConverter {
 		um.setPassword(u.getPassword());
 		um.setCursos(u.getCursos());
 		um.setRol(u.getRol());
+		um.setImagen(u.getImagen());
 
 		return um;
 	}
@@ -38,6 +39,8 @@ public class UsuarioConverter {
 		u.setPassword(um.getPassword());
 		u.setCursos(um.getCursos());
 		u.setRol(um.getRol());
+		u.setImagen(um.getImagen());
+
 		return u;
 	}
 }

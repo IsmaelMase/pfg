@@ -2,3 +2,7 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/bd
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB

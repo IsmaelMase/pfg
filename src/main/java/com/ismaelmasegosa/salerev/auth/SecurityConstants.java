@@ -10,4 +10,7 @@ public class SecurityConstants {
 	public static final String HEADER_STRING = "Authorization";
 	public static final String SIGN_UP_URL = "/api/usuario/saveUsuario";
 	public static final String LOG_IN_URL = "/api/login";
+	public static final String SAVE_IMAGE = "/api/upload/saveFile";
+	public static final String GET_FILE = "/api/upload/files/{filename:.+}";
+
 }

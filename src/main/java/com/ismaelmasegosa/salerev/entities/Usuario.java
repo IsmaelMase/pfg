@@ -28,11 +28,13 @@ public class Usuario {
 
 	public String rol;
 
+	public String imagen;
+
 	@DBRef
 	public List<Curso> cursos;
 
 	public Usuario(String id, String nombre, String apellido, String dni, String telefono, String email,
-			String password, String rol, List<Curso> cursos) {
+			String password, String rol, List<Curso> cursos, String imagen) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -42,6 +44,7 @@ public class Usuario {
 		this.password = password;
 		this.rol = rol;
 		this.cursos = cursos;
+		this.imagen = imagen;
 	}
 
 	public Usuario() {
@@ -122,6 +125,14 @@ public class Usuario {
 
 	public void setRol(String rol) {
 		this.rol = rol;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 
 	@Override
