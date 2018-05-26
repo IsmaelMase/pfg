@@ -21,6 +21,7 @@ public class RecursoConverter {
 		}
 		rm.setIncidencia(r.getIncidencia());
 		rm.setIntervalo(r.getIntervalo());
+		rm.setImagen(r.getImagen());
 
 		return rm;
 	}
@@ -38,6 +39,7 @@ public class RecursoConverter {
 		}
 		r.setIncidencia(rm.getIncidencia());
 		r.setIntervalo(rm.getIntervalo());
+		r.setImagen(rm.getImagen());
 
 		return r;
 	}

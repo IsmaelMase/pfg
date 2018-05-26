@@ -39,6 +39,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 			return new ResponseEntity<UsuarioModel>(usuarioConverter.converterEntityToModel(uSave), HttpStatus.CREATED);
 
 		} catch (Exception e) {
+			if (e.getMessage().contains("E11000") && e.getMessage().contains("dni")) {
+				return new ResponseEntity<>(HttpStatus.CONFLICT);
+
+			} else if (e.getMessage().contains("E11000") && e.getMessage().contains("email")) {
+				return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+
+			}
 
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 

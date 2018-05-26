@@ -22,6 +22,7 @@ public class Usuario {
 
 	public String telefono;
 
+	@Indexed(unique = true)
 	public String email;
 
 	public String password;

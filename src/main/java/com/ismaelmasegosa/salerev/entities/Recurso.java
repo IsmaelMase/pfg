@@ -23,8 +23,10 @@ public class Recurso {
 	@DBRef
 	public Horario intervalo;
 
+	public String imagen;
+
 	public Recurso(String id, String nombre, String tipo, String datos, String incidencia, int capacidad,
-			Horario intervalo) {
+			Horario intervalo, String imagen) {
 		this.id = id;
 		this.nombre = nombre;
 		this.tipo = tipo;
@@ -32,6 +34,7 @@ public class Recurso {
 		this.incidencia = incidencia;
 		this.capacidad = capacidad;
 		this.intervalo = intervalo;
+		this.imagen = imagen;
 	}
 
 	public Recurso() {
@@ -91,6 +94,14 @@ public class Recurso {
 
 	public void setIntervalo(Horario intervalo) {
 		this.intervalo = intervalo;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 
 	@Override

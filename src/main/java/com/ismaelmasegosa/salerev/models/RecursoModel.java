@@ -18,8 +18,10 @@ public class RecursoModel {
 
 	public Horario intervalo;
 
+	public String imagen;
+
 	public RecursoModel(String id, String nombre, String tipo, String datos, String incidencia, int capacidad,
-			Horario intervalo) {
+			Horario intervalo, String imagen) {
 		this.id = id;
 		this.nombre = nombre;
 		this.tipo = tipo;
@@ -27,6 +29,7 @@ public class RecursoModel {
 		this.incidencia = incidencia;
 		this.capacidad = capacidad;
 		this.intervalo = intervalo;
+		this.imagen = imagen;
 	}
 
 	public RecursoModel() {
@@ -86,6 +89,14 @@ public class RecursoModel {
 
 	public void setIntervalo(Horario intevalo) {
 		this.intervalo = intevalo;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 
 }
