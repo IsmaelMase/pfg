@@ -33,7 +33,15 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public ResponseEntity<UsuarioModel> addUsuario(UsuarioModel u) {
 		try {
-			u.setPassword(passwordEncoder.encode(u.getPassword()));
+			if (u.getId().equals("")) {
+				u.setPassword(passwordEncoder.encode(u.getPassword()));
+			} else {
+				String oldpasswordUsuario = usuarioRepository.findById(u.getId()).get().getPassword();
+
+				if (!oldpasswordUsuario.equals(u.getPassword())) {
+					u.setPassword(passwordEncoder.encode(u.getPassword()));
+				}
+			}
 			Usuario uSave = usuarioRepository.save(usuarioConverter.converterModelToEntity(u));
 
 			return new ResponseEntity<UsuarioModel>(usuarioConverter.converterEntityToModel(uSave), HttpStatus.CREATED);
