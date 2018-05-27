@@ -1,5 +1,6 @@
 package com.ismaelmasegosa.salerev.bootstrap;
 
+import static com.ismaelmasegosa.salerev.auth.SecurityConstants.FORGET_PASS;
 import static com.ismaelmasegosa.salerev.auth.SecurityConstants.GET_FILE;
 import static com.ismaelmasegosa.salerev.auth.SecurityConstants.LOG_IN_URL;
 import static com.ismaelmasegosa.salerev.auth.SecurityConstants.SAVE_IMAGE;
@@ -35,8 +36,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests().antMatchers(HttpMethod.OPTIONS).permitAll().antMatchers(SIGN_UP_URL)
 				.permitAll().antMatchers(LOG_IN_URL).permitAll().antMatchers(SAVE_IMAGE).permitAll()
-				.antMatchers(GET_FILE).anonymous().anyRequest().authenticated().and()
-				.addFilter(new JWTAuthorizationFilter(authenticationManager())).sessionManagement()
+				.antMatchers(GET_FILE).permitAll().antMatchers(FORGET_PASS).anonymous().anyRequest().authenticated()
+				.and().addFilter(new JWTAuthorizationFilter(authenticationManager())).sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 

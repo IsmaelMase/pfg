@@ -12,5 +12,6 @@ public class SecurityConstants {
 	public static final String LOG_IN_URL = "/api/login";
 	public static final String SAVE_IMAGE = "/api/upload/saveFile";
 	public static final String GET_FILE = "/api/upload/files/{filename:.+}";
+	public static final String FORGET_PASS = "/api/mail/sendMail";
 
 }
