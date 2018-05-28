@@ -31,11 +31,13 @@ public class Usuario {
 
 	public String imagen;
 
+	public boolean estado;
+
 	@DBRef
 	public List<Curso> cursos;
 
 	public Usuario(String id, String nombre, String apellido, String dni, String telefono, String email,
-			String password, String rol, List<Curso> cursos, String imagen) {
+			String password, String rol, List<Curso> cursos, String imagen, boolean estado) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -46,6 +48,7 @@ public class Usuario {
 		this.rol = rol;
 		this.cursos = cursos;
 		this.imagen = imagen;
+		this.estado = estado;
 	}
 
 	public Usuario() {
@@ -136,10 +139,12 @@ public class Usuario {
 		this.imagen = imagen;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", telefono="
-				+ telefono + ", email=" + email + ", password=" + password + "]";
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
 	}
 
 }

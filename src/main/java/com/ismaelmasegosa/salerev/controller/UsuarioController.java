@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ismaelmasegosa.salerev.entities.Usuario;
 import com.ismaelmasegosa.salerev.models.UsuarioModel;
-import com.ismaelmasegosa.salerev.repository.UsuarioRepository;
 import com.ismaelmasegosa.salerev.service.serviceImpl.UsuarioServiceImpl;
 
 @RestController
@@ -30,9 +28,14 @@ public class UsuarioController {
 	@Qualifier("usuarioService")
 	private UsuarioServiceImpl usuarioService;
 
-	@GetMapping(value = "/usuarios")
+	@GetMapping(value = "/allUsuarios")
 	public List<UsuarioModel> getAllusuarios() {
 		return usuarioService.findAll();
+	}
+
+	@GetMapping(value = "/usuarios")
+	public List<UsuarioModel> getUsuariosActivos() {
+		return usuarioService.findAllActivate();
 	}
 
 	@PostMapping(value = "/saveUsuario")

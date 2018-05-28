@@ -17,4 +17,6 @@ public interface UsuarioRepository extends MongoRepository<Usuario, String> {
 
 	public List<Usuario> findByRol(String rol);
 
+	public List<Usuario> findByRolAndEstado(String rol, boolean estado);
+
 }

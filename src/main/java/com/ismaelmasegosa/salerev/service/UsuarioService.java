@@ -11,6 +11,8 @@ public interface UsuarioService {
 
 	public List<UsuarioModel> findAll();
 
+	public List<UsuarioModel> findAllActivate();
+
 	public Usuario findByEmail(String email);
 
 	public ResponseEntity<UsuarioModel> addUsuario(UsuarioModel u);

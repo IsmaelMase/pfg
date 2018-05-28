@@ -64,8 +64,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public ResponseEntity<String> removeUsuario(String id) {
 		try {
+			UsuarioModel usuario = usuarioConverter.converterEntityToModel(usuarioRepository.findById(id).get());
+			usuario.setEstado(!usuario.isEstado());
 
-			usuarioRepository.deleteById(id);
+			Usuario uSave = usuarioRepository.save(usuarioConverter.converterModelToEntity(usuario));
 
 			return new ResponseEntity<>(HttpStatus.OK);
 
@@ -91,6 +93,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		return usuarioRepository.findByEmail(email);
 
+	}
+
+	@Override
+	public List<UsuarioModel> findAllActivate() {
+		ArrayList<UsuarioModel> usuarioModel = new ArrayList<>();
+		for (Usuario u : usuarioRepository.findByRolAndEstado("ROL_PROFESOR", true)) {
+			usuarioModel.add(usuarioConverter.converterEntityToModel(u));
+		}
+
+		return usuarioModel;
 	}
 
 }

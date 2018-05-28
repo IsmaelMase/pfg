@@ -26,8 +26,10 @@ public class UsuarioModel {
 
 	public String imagen;
 
+	public boolean estado;
+
 	public UsuarioModel(String id, String nombre, String apellido, String dni, String telefono, String email,
-			String password, List<Curso> cursos, String rol, String imagen) {
+			String password, List<Curso> cursos, String rol, String imagen, boolean estado) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -38,6 +40,7 @@ public class UsuarioModel {
 		this.cursos = cursos;
 		this.rol = rol;
 		this.imagen = imagen;
+		this.estado = estado;
 
 	}
 
@@ -122,6 +125,14 @@ public class UsuarioModel {
 
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
+	}
+
+	public boolean isEstado() {
+		return estado;
+	}
+
+	public void setEstado(boolean estado) {
+		this.estado = estado;
 	}
 
 }
