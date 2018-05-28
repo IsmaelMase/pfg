@@ -11,8 +11,10 @@ import org.springframework.stereotype.Service;
 
 import com.ismaelmasegosa.salerev.converter.IntervaloConverter;
 import com.ismaelmasegosa.salerev.entities.Horario;
+import com.ismaelmasegosa.salerev.entities.Recurso;
 import com.ismaelmasegosa.salerev.models.HorarioModel;
 import com.ismaelmasegosa.salerev.repository.IntervaloRepository;
+import com.ismaelmasegosa.salerev.repository.RecursoRepository;
 import com.ismaelmasegosa.salerev.service.IntervaloService;
 
 @Service("intervaloService")
@@ -21,6 +23,10 @@ public class IntervaloServiceImpl implements IntervaloService {
 	@Autowired
 	@Qualifier("intervaloRepository")
 	private IntervaloRepository intervaloRepository;
+
+	@Autowired
+	@Qualifier("recursoRepository")
+	private RecursoRepository recursoRepository;
 
 	@Autowired
 	@Qualifier("intervaloConverter")
@@ -53,7 +59,10 @@ public class IntervaloServiceImpl implements IntervaloService {
 	@Override
 	public ResponseEntity<String> removeIntervalo(String id) {
 		try {
-
+			List<Recurso> recursos = recursoRepository.findFirstByIntervalo(intervaloRepository.findById(id).get());
+			if (!recursos.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.CONFLICT);
+			}
 			intervaloRepository.deleteById(id);
 
 			return new ResponseEntity<>(HttpStatus.OK);

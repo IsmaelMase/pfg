@@ -46,12 +46,16 @@ public class LoginServiceImpl implements LoginService {
 		Authentication auth = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 
-		String token = Jwts.builder().setSubject(((User) auth.getPrincipal()).toString())
-				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-				.signWith(SignatureAlgorithm.HS512, SECRET.getBytes()).compact();
-		LoginResponse response = new LoginResponse(
-				usuarioConverter.converterEntityToModel(usuarioRepository.findByEmail(request.getEmail())),
-				TOKEN_PREFIX + token);
-		return new ResponseEntity<LoginResponse>(response, HttpStatus.OK);
+		if (usuarioRepository.findByEmail(request.getEmail()).isEstado()) {
+			String token = Jwts.builder().setSubject(((User) auth.getPrincipal()).toString())
+					.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+					.signWith(SignatureAlgorithm.HS512, SECRET.getBytes()).compact();
+			LoginResponse response = new LoginResponse(
+					usuarioConverter.converterEntityToModel(usuarioRepository.findByEmail(request.getEmail())),
+					TOKEN_PREFIX + token);
+			return new ResponseEntity<LoginResponse>(response, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<LoginResponse>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 }

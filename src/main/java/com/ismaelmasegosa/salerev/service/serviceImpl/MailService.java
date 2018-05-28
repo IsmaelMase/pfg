@@ -36,12 +36,12 @@ public class MailService {
 	public ResponseEntity<String> sendMail(ChangePass change) {
 
 		try {
-			UsuarioModel usuario = usuarioConverter
-					.converterEntityToModel(usuarioRepository.findByEmail(change.getEmail()));
-			if (usuario == null) {
+			UsuarioModel usuario;
+			try {
+				usuario = usuarioConverter.converterEntityToModel(usuarioRepository.findByEmail(change.getEmail()));
+			} catch (Exception e) {
 				return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
 			}
-
 			try {
 				usuario.setPassword(change.getPassEncr());
 				usarioService.addUsuario(usuario);

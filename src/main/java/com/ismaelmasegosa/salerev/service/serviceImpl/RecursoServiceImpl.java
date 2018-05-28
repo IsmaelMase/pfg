@@ -11,9 +11,10 @@ import org.springframework.stereotype.Service;
 
 import com.ismaelmasegosa.salerev.converter.RecursoConverter;
 import com.ismaelmasegosa.salerev.entities.Recurso;
-import com.ismaelmasegosa.salerev.models.CursoModel;
+import com.ismaelmasegosa.salerev.entities.Reserva;
 import com.ismaelmasegosa.salerev.models.RecursoModel;
 import com.ismaelmasegosa.salerev.repository.RecursoRepository;
+import com.ismaelmasegosa.salerev.repository.ReservaRepository;
 import com.ismaelmasegosa.salerev.service.RecursoService;
 
 @Service("recursoService")
@@ -22,6 +23,10 @@ public class RecursoServiceImpl implements RecursoService {
 	@Autowired
 	@Qualifier("recursoRepository")
 	private RecursoRepository recursoRepository;
+
+	@Autowired
+	@Qualifier("reservaRepository")
+	private ReservaRepository reservaRepository;
 
 	@Autowired
 	@Qualifier("recursoConverter")
@@ -45,6 +50,10 @@ public class RecursoServiceImpl implements RecursoService {
 	@Override
 	public ResponseEntity<String> removeRecurso(String id) {
 		try {
+			List<Reserva> reserva = reservaRepository.findFirstByRecurso(recursoRepository.findById(id).get());
+			if (!reserva.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.CONFLICT);
+			}
 
 			recursoRepository.deleteById(id);
 
