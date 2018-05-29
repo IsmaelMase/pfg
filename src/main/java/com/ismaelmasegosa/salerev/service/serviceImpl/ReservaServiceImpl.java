@@ -7,6 +7,9 @@ import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -43,6 +46,9 @@ public class ReservaServiceImpl implements ReservaService {
 	@Autowired
 	@Qualifier("recursoConverter")
 	private RecursoConverter recursoConverter;
+
+	@Autowired
+	MongoTemplate mongoTemplate;
 
 	@Override
 	public ResponseEntity<List<ReservaModel>> addReserva(ReservaModel r) {
@@ -95,21 +101,6 @@ public class ReservaServiceImpl implements ReservaService {
 		return fechas_NoDisponibles;
 	}
 
-	// @Override
-	// public List<ReservaModel> findByUsuarioAndFechaContains(String id, String
-	// fecha) {
-	// ArrayList<ReservaModel> reservasModel = new ArrayList<>();
-	//
-	// for (Reserva r :
-	// reservaRepository.findByUsuarioAndFechaContains(usuarioRespository.findById(id),
-	// "/" + fecha)) {
-	// reservasModel.add(reservaConverter.converterEntityToModel(r));
-	// }
-	//
-	// return reservasModel;
-	//
-	// }
-
 	@Override
 	public List<ReservaModel> findByUsuarioAndFecha(String id, String fecha) {
 		ArrayList<ReservaModel> reservasModel = new ArrayList<>();
@@ -122,20 +113,6 @@ public class ReservaServiceImpl implements ReservaService {
 		return reservasModel;
 
 	}
-
-	// @Override
-	// public List<ReservaModel> findByRecursoAndFecha(String id, String mes) {
-	//
-	// ArrayList<ReservaModel> reservasModel = new ArrayList<>();
-	// Optional<Recurso> re = recursoRespository.findById(id);
-	// for (Reserva r : reservaRepository.findByRecursoAndFechaContains(re, "/" +
-	// mes)) {
-	// reservasModel.add(reservaConverter.converterEntityToModel(r));
-	// }
-	//
-	// return reservasModel;
-	//
-	// }
 
 	@Override
 	public TreeMap<Integer, List<String>> findByRecursoAndFechasContains(String id, List<String> fechas) {
@@ -191,6 +168,20 @@ public class ReservaServiceImpl implements ReservaService {
 			reservasModel.add(reservaConverter.converterEntityToModel(r));
 		}
 
+		return reservasModel;
+	}
+
+	@Override
+	public List<ReservaModel> findByUsuario(String id, int skip, int top) {
+
+		ArrayList<ReservaModel> reservasModel = new ArrayList<>();
+		Query query = new Query();
+		query.addCriteria(Criteria.where("usuario.id").is(id));
+		query.skip(skip);
+		query.limit(top);
+		for (Reserva r : mongoTemplate.find(query, Reserva.class)) {
+			reservasModel.add(reservaConverter.converterEntityToModel(r));
+		}
 		return reservasModel;
 	}
 

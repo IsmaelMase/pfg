@@ -11,6 +11,8 @@ import com.ismaelmasegosa.salerev.entities.Usuario;
 
 public interface ReservaRepository extends MongoRepository<Reserva, String> {
 
+	public List<Reserva> findByUsuario(Usuario usuario);
+
 	public List<Reserva> findByUsuarioAndFechaContains(Optional<Usuario> optional, String s);
 
 	public List<Reserva> findByRecurso(Recurso recurso);
