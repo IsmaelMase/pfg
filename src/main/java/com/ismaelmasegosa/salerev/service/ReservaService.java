@@ -13,7 +13,7 @@ public interface ReservaService {
 	//
 	// public List<ReservaModel> findByUsuarioAndFechaContains(String id, String
 	// fecha);
-	public List<ReservaModel> findByUsuario(String id, int skip, int top);
+	public List<ReservaModel> findByUsuario(String id, int skip);
 
 	public List<ReservaModel> findByUsuarioAndFecha(String id, String fecha);
 

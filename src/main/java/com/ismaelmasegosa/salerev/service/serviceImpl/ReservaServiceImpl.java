@@ -1,5 +1,7 @@
 package com.ismaelmasegosa.salerev.service.serviceImpl;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +9,10 @@ import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
@@ -172,15 +177,20 @@ public class ReservaServiceImpl implements ReservaService {
 	}
 
 	@Override
-	public List<ReservaModel> findByUsuario(String id, int skip, int top) {
-
+	public List<ReservaModel> findByUsuario(String id, int skip) {
+		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+		final String today = LocalDate.now().format(formatter);
 		ArrayList<ReservaModel> reservasModel = new ArrayList<>();
+		Query q = new BasicQuery("{ filter : true }");
 		Query query = new Query();
 		query.addCriteria(Criteria.where("usuario.id").is(id));
-		query.skip(skip);
-		query.limit(top);
+		query.addCriteria(Criteria.where("fecha").gte(today));
+		query.with(new Sort(Sort.Direction.ASC, "fecha"));
+		query.with(new Sort(Sort.Direction.ASC, "intervalo"));
+		query.with(new PageRequest(skip, 100));
 		for (Reserva r : mongoTemplate.find(query, Reserva.class)) {
 			reservasModel.add(reservaConverter.converterEntityToModel(r));
+			System.out.println(r.toString());
 		}
 		return reservasModel;
 	}

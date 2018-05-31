@@ -34,10 +34,9 @@ public class ReservaController {
 	// return reservaService.findAll();
 	// }
 
-	@GetMapping(value = "/reservasByUsuario/{id}/{skip}/{top}")
-	public List<ReservaModel> getReservasByUsuario(@PathVariable("id") String id, @PathVariable("skip") int skip,
-			@PathVariable("top") int top) {
-		return reservaService.findByUsuario(id, skip, top);
+	@GetMapping(value = "/reservasByUsuario/{id}/{skip}")
+	public List<ReservaModel> getReservasByUsuario(@PathVariable("id") String id, @PathVariable("skip") int skip) {
+		return reservaService.findByUsuario(id, skip);
 	}
 
 	@PostMapping(value = "/reservasByUsuarioAndFecha/{id}")

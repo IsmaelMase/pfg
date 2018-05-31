@@ -95,4 +95,9 @@ public class Reserva {
 		this.curso = curso;
 	}
 
+	@Override
+	public String toString() {
+		return "fecha=" + fecha + ", intervalo=" + intervalo;
+	}
+
 }

@@ -11,15 +11,14 @@ import com.ismaelmasegosa.salerev.models.ReservaModel;
 public class ReservaConverter {
 
 	public ReservaModel converterEntityToModel(Reserva r) {
-
 		ReservaModel rm = new ReservaModel();
 		if (!r.getId().isEmpty()) {
 			rm.setId(r.getId());
 		}
 		rm.fechas_reservas = new ArrayList<String>();
 		rm.intervalos_reservas = new ArrayList<String>();
-		rm.getFechas_reservas().add(r.getFecha());
 		rm.getIntervalos_reservas().add(r.getIntervalo());
+		rm.getFechas_reservas().add(r.getFecha());
 		rm.setRecurso(r.getRecurso());
 		rm.setUsuario(r.getUsuario());
 		rm.setAnotacion(r.getAnotacion());
