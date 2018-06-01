@@ -58,15 +58,30 @@ public class ReservaServiceImpl implements ReservaService {
 	@Override
 	public ResponseEntity<List<ReservaModel>> addReserva(ReservaModel r) {
 		List<ReservaModel> reservas = new ArrayList<>();
+		List<ReservaModel> reservasNoRealizadas = new ArrayList<>();
+
 		try {
 			r.getFechas_reservas().stream().forEach((f) -> {
 				r.getIntervalos_reservas().stream().forEach((i) -> {
-					Reserva reserva = reservaRepository.save(reservaConverter.converterModelToEntity(r, f, i));
-					reservas.add(reservaConverter.converterEntityToModel(reserva));
+					Reserva reserva;
+					List<Reserva> reservasExistentes = reservaRepository
+							.findByRecursoAndFechaAndIntervalo(r.getRecurso(), f, i);
+					if (reservasExistentes.size() == 0) {
+						reserva = reservaRepository.save(reservaConverter.converterModelToEntity(r, f, i));
+						reservas.add(reservaConverter.converterEntityToModel(reserva));
+					} else {
+						reserva = reservaRepository.save(reservasExistentes.get(0));
+						reservasNoRealizadas.add(reservaConverter.converterEntityToModel(reserva));
+					}
+
 				});
 			});
 
-			return new ResponseEntity<List<ReservaModel>>(reservas, HttpStatus.CREATED);
+			if (reservasNoRealizadas.size() > 0) {
+				return new ResponseEntity<List<ReservaModel>>(reservasNoRealizadas, HttpStatus.CONFLICT);
+			} else {
+				return new ResponseEntity<List<ReservaModel>>(reservas, HttpStatus.CREATED);
+			}
 
 		} catch (Exception e) {
 
@@ -177,20 +192,49 @@ public class ReservaServiceImpl implements ReservaService {
 	}
 
 	@Override
-	public List<ReservaModel> findByUsuario(String id, int skip) {
+	public List<ReservaModel> findByUsuario(String id, int skip, String fecha) {
 		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		final String today = LocalDate.now().format(formatter);
 		ArrayList<ReservaModel> reservasModel = new ArrayList<>();
 		Query q = new BasicQuery("{ filter : true }");
 		Query query = new Query();
+		fecha = fecha.replace("\"", "");
+		fecha = fecha.replace("-", "/");
 		query.addCriteria(Criteria.where("usuario.id").is(id));
-		query.addCriteria(Criteria.where("fecha").gte(today));
+		if (fecha.equals("")) {
+			query.addCriteria(Criteria.where("fecha").gte(today));
+		} else {
+			query.addCriteria(Criteria.where("fecha").is(fecha));
+		}
 		query.with(new Sort(Sort.Direction.ASC, "fecha"));
 		query.with(new Sort(Sort.Direction.ASC, "intervalo"));
 		query.with(new PageRequest(skip, 100));
 		for (Reserva r : mongoTemplate.find(query, Reserva.class)) {
 			reservasModel.add(reservaConverter.converterEntityToModel(r));
-			System.out.println(r.toString());
+		}
+		return reservasModel;
+	}
+
+	@Override
+	public List<ReservaModel> findByRecurso(String id, int skip, String fecha) {
+		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+		final String today = LocalDate.now().format(formatter);
+		ArrayList<ReservaModel> reservasModel = new ArrayList<>();
+		Query q = new BasicQuery("{ filter : true }");
+		Query query = new Query();
+		fecha = fecha.replace("\"", "");
+		fecha = fecha.replace("-", "/");
+		query.addCriteria(Criteria.where("recurso.id").is(id));
+		if (fecha.equals("")) {
+			query.addCriteria(Criteria.where("fecha").gte(today));
+		} else {
+			query.addCriteria(Criteria.where("fecha").is(fecha));
+		}
+		query.with(new Sort(Sort.Direction.ASC, "fecha"));
+		query.with(new Sort(Sort.Direction.ASC, "intervalo"));
+		query.with(new PageRequest(skip, 100));
+		for (Reserva r : mongoTemplate.find(query, Reserva.class)) {
+			reservasModel.add(reservaConverter.converterEntityToModel(r));
 		}
 		return reservasModel;
 	}
