@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ismaelmasegosa.salerev.models.HorarioModel;
-import com.ismaelmasegosa.salerev.service.serviceImpl.IntervaloServiceImpl;
+import com.ismaelmasegosa.salerev.service.serviceImpl.HorarioServiceImpl;
 
 @RestController
 @RequestMapping("/api/intervalo")
@@ -26,7 +26,7 @@ public class IntervaloController {
 
 	@Autowired
 	@Qualifier("intervaloService")
-	private IntervaloServiceImpl intervaloService;
+	private HorarioServiceImpl intervaloService;
 
 	@GetMapping(value = "/intervalos")
 	public List<HorarioModel> getAllIntervalos() {

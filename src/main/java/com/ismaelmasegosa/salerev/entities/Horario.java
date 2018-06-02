@@ -1,5 +1,6 @@
 package com.ismaelmasegosa.salerev.entities;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -15,9 +16,13 @@ public class Horario {
 
 	public List<String> intervalos;
 
-	public Horario(String nombre, List<String> intervalos) {
+	public LocalDate fecha_max;
+
+	public Horario(String id, String nombre, List<String> intervalos, LocalDate fecha_max) {
+		this.id = id;
 		this.nombre = nombre;
 		this.intervalos = intervalos;
+		this.fecha_max = fecha_max;
 	}
 
 	public Horario() {
@@ -45,6 +50,14 @@ public class Horario {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public LocalDate getFecha_max() {
+		return fecha_max;
+	}
+
+	public void setFecha_max(LocalDate fecha_max) {
+		this.fecha_max = fecha_max;
 	}
 
 	@Override

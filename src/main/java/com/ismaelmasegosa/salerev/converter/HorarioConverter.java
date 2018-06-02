@@ -6,7 +6,7 @@ import com.ismaelmasegosa.salerev.entities.Horario;
 import com.ismaelmasegosa.salerev.models.HorarioModel;
 
 @Component("intervaloConverter")
-public class IntervaloConverter {
+public class HorarioConverter {
 	public HorarioModel converterEntityToModel(Horario i) {
 		HorarioModel im = new HorarioModel();
 		if (!i.id.isEmpty()) {
@@ -14,7 +14,7 @@ public class IntervaloConverter {
 		}
 		im.setNombre(i.getNombre());
 		im.setIntervalos(i.getIntervalos());
-
+		im.setFecha_max(i.getFecha_max());
 		return im;
 	}
 
@@ -25,6 +25,8 @@ public class IntervaloConverter {
 		}
 		i.setNombre(im.getNombre());
 		i.setIntervalos(im.getIntervalos());
+		i.setFecha_max(im.getFecha_max());
+
 		return i;
 	}
 }

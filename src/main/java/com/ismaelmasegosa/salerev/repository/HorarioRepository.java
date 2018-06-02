@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.ismaelmasegosa.salerev.entities.Horario;
 
 @Repository("intervaloRepository")
-public interface IntervaloRepository extends MongoRepository<Horario, String>{
+public interface HorarioRepository extends MongoRepository<Horario, String>{
 
 }

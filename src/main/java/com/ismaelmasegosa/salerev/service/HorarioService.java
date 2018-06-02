@@ -6,12 +6,13 @@ import org.springframework.http.ResponseEntity;
 
 import com.ismaelmasegosa.salerev.models.HorarioModel;
 
-public interface IntervaloService {
+public interface HorarioService {
 
 	public List<HorarioModel> findAll();
 
 	public ResponseEntity<HorarioModel> addIntervalo(HorarioModel in);
 
 	public ResponseEntity<String> removeIntervalo(String id);
+	
 
 }

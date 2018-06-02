@@ -9,20 +9,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.ismaelmasegosa.salerev.converter.IntervaloConverter;
+import com.ismaelmasegosa.salerev.converter.HorarioConverter;
 import com.ismaelmasegosa.salerev.entities.Horario;
 import com.ismaelmasegosa.salerev.entities.Recurso;
 import com.ismaelmasegosa.salerev.models.HorarioModel;
-import com.ismaelmasegosa.salerev.repository.IntervaloRepository;
+import com.ismaelmasegosa.salerev.repository.HorarioRepository;
 import com.ismaelmasegosa.salerev.repository.RecursoRepository;
-import com.ismaelmasegosa.salerev.service.IntervaloService;
+import com.ismaelmasegosa.salerev.service.HorarioService;
 
 @Service("intervaloService")
-public class IntervaloServiceImpl implements IntervaloService {
+public class HorarioServiceImpl implements HorarioService {
 
 	@Autowired
 	@Qualifier("intervaloRepository")
-	private IntervaloRepository intervaloRepository;
+	private HorarioRepository intervaloRepository;
 
 	@Autowired
 	@Qualifier("recursoRepository")
@@ -30,7 +30,7 @@ public class IntervaloServiceImpl implements IntervaloService {
 
 	@Autowired
 	@Qualifier("intervaloConverter")
-	private IntervaloConverter intervaloConverter;
+	private HorarioConverter intervaloConverter;
 
 	@Override
 	public List<HorarioModel> findAll() {
