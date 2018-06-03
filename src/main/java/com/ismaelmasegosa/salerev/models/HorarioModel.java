@@ -1,6 +1,5 @@
 package com.ismaelmasegosa.salerev.models;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class HorarioModel {
@@ -11,9 +10,9 @@ public class HorarioModel {
 
 	public List<String> intervalos;
 
-	public LocalDate fecha_max;
+	public String fecha_max;
 
-	public HorarioModel(String id, String nombre, List<String> intervalos, LocalDate fecha_max) {
+	public HorarioModel(String id, String nombre, List<String> intervalos, String fecha_max) {
 		this.id = id;
 		this.nombre = nombre;
 		this.intervalos = intervalos;
@@ -47,11 +46,11 @@ public class HorarioModel {
 		this.nombre = nombre;
 	}
 
-	public LocalDate getFecha_max() {
+	public String getFecha_max() {
 		return fecha_max;
 	}
 
-	public void setFecha_max(LocalDate fecha_max) {
+	public void setFecha_max(String fecha_max) {
 		this.fecha_max = fecha_max;
 	}
 

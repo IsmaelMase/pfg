@@ -1,6 +1,7 @@
 package com.ismaelmasegosa.salerev.service.serviceImpl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,8 @@ public class HorarioServiceImpl implements HorarioService {
 	@Override
 	public ResponseEntity<HorarioModel> addIntervalo(HorarioModel in) {
 		try {
+			Collections.sort(in.intervalos.subList(1, in.intervalos.size()));
+
 			Horario iSave = intervaloRepository.save(intervaloConverter.converterModelToEntity(in));
 
 			return new ResponseEntity<>(intervaloConverter.converterEntityToModel(iSave), HttpStatus.CREATED);
