@@ -70,8 +70,13 @@ public class ReservaServiceImpl implements ReservaService {
 						reserva = reservaRepository.save(reservaConverter.converterModelToEntity(r, f, i));
 						reservas.add(reservaConverter.converterEntityToModel(reserva));
 					} else {
-						reserva = reservaRepository.save(reservasExistentes.get(0));
-						reservasNoRealizadas.add(reservaConverter.converterEntityToModel(reserva));
+						if (r.getId().equals("") || reservasExistentes.get(0).getId().equals(r.getId())) {
+							reserva = reservaRepository.save(reservaConverter.converterModelToEntity(r, f, i));
+							reservas.add(reservaConverter.converterEntityToModel(reserva));
+						} else {
+							reserva = reservaRepository.save(reservasExistentes.get(0));
+							reservasNoRealizadas.add(reservaConverter.converterEntityToModel(reserva));
+						}
 					}
 
 				});
