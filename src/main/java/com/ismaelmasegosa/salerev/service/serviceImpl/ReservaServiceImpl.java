@@ -125,8 +125,7 @@ public class ReservaServiceImpl implements ReservaService {
 	public List<ReservaModel> findByUsuarioAndFecha(String id, String fecha) {
 		ArrayList<ReservaModel> reservasModel = new ArrayList<>();
 		fecha = fecha.replace("\"", "");
-		for (Reserva r : reservaRepository.findByUsuarioAndFechaContains(usuarioRespository.findById(id),
-				"/" + fecha)) {
+		for (Reserva r : reservaRepository.findByUsuarioAndFechaContains(usuarioRespository.findById(id), fecha)) {
 			reservasModel.add(reservaConverter.converterEntityToModel(r));
 		}
 
