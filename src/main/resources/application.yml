@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/bd
+      uri: mongodb://admin:salesianas1234@ds245680.mlab.com:45680/salerev
   servlet:
     multipart:
       max-file-size: 1000MB
