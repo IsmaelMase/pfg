@@ -223,7 +223,7 @@ public class ReservaServiceImpl implements ReservaService {
 		}
 		query.with(new Sort(Sort.Direction.ASC, "fecha"));
 		query.with(new Sort(Sort.Direction.ASC, "intervalo"));
-		query.with(new PageRequest(skip, 100));
+		query.with(new PageRequest(skip, 20));
 		for (Reserva r : mongoTemplate.find(query, Reserva.class)) {
 			reservasModel.add(reservaConverter.converterEntityToModel(r));
 		}
