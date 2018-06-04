@@ -33,4 +33,6 @@ public interface ReservaService {
 
 	public ResponseEntity<String> removeReserva(String id);
 
+	public ResponseEntity<String> removeMassReserva(List<String> ids);
+
 }

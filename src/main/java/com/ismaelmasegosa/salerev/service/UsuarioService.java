@@ -18,5 +18,5 @@ public interface UsuarioService {
 	public ResponseEntity<UsuarioModel> addUsuario(UsuarioModel u);
 
 	public ResponseEntity<String> removeUsuario(String id);
-
+	
 }

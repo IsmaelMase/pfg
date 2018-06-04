@@ -254,4 +254,20 @@ public class ReservaServiceImpl implements ReservaService {
 		return reservasModel;
 	}
 
+	@Override
+	public ResponseEntity<String> removeMassReserva(List<String> ids) {
+		try {
+
+			for (String id : ids) {
+				reservaRepository.deleteById(id);
+			}
+			return new ResponseEntity<>(HttpStatus.OK);
+
+		} catch (Exception e) {
+
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+		}
+	}
+
 }

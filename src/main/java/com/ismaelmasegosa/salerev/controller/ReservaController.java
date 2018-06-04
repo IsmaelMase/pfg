@@ -82,4 +82,10 @@ public class ReservaController {
 	public ResponseEntity<String> deleteReserva(@PathVariable("id") String id) {
 		return reservaService.removeReserva(id);
 	}
+
+	@PostMapping(value = "/removeReservasMass")
+	public ResponseEntity<String> deleteMassReserva(@Valid @RequestBody List<String> ids) {
+		return reservaService.removeMassReserva(ids);
+	}
+
 }
