@@ -1,5 +1,7 @@
 package com.ismaelmasegosa.salerev.service.serviceImpl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -70,7 +72,7 @@ public class ReservaServiceImpl implements ReservaService {
 						reserva = reservaRepository.save(reservaConverter.converterModelToEntity(r, f, i));
 						reservas.add(reservaConverter.converterEntityToModel(reserva));
 					} else {
-						if (r.getId().equals("") || reservasExistentes.get(0).getId().equals(r.getId())) {
+						if (reservasExistentes.get(0).getId().equals(r.getId())) {
 							reserva = reservaRepository.save(reservaConverter.converterModelToEntity(r, f, i));
 							reservas.add(reservaConverter.converterEntityToModel(reserva));
 						} else {
@@ -144,6 +146,8 @@ public class ReservaServiceImpl implements ReservaService {
 		ArrayList<String> reservasTabla = new ArrayList<>();
 		int cont = 0;
 		Recurso re = recursoRespository.findById(id).get();
+		SimpleDateFormat fromUser = new SimpleDateFormat("yyyy/MM/dd");
+		SimpleDateFormat myFormat = new SimpleDateFormat("dd/MM/yyyy");
 		for (String hora : re.getIntervalo().getIntervalos()) {
 			cont++;
 			reservasTabla = new ArrayList<>();
@@ -164,6 +168,13 @@ public class ReservaServiceImpl implements ReservaService {
 			tablaReservas.put(cont, reservasTabla);
 		}
 		fechas.add(0, "Horas");
+		for (int i = 1; i < fechas.size(); i++) {
+			try {
+				fechas.set(i, myFormat.format(fromUser.parse(fechas.get(i))));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
 		tablaReservas.put(0, fechas);
 		return tablaReservas;
 	}
