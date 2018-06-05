@@ -47,7 +47,11 @@ public class RecursoServiceImpl implements RecursoService {
 
 			if (recursoOriginal != null) {
 				if (!recursoOriginal.getIncidencia().equalsIgnoreCase(rSave.getIncidencia())) {
-					mailService.sendMailIncidencia(rSave.getNombre(), rSave.getIncidencia());
+					if (rSave.getIncidencia().equals("")) {
+						mailService.sendMailIncidencia(rSave.getNombre(), "No tiene incidencias");
+					} else {
+						mailService.sendMailIncidencia(rSave.getNombre(), rSave.getIncidencia());
+					}
 				}
 			}
 

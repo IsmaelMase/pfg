@@ -72,7 +72,7 @@ public class MailService {
 			UsuarioModel usuario;
 
 			for (Usuario u : usuarioRepository.findByRolAndEstado("ROL_ADMIN", true)) {
-				String mensaje = "Se ha notificado una incidencia en el aula/recurso" + nombreRecurso + ".\n"
+				String mensaje = "Se ha notificado una incidencia en el aula/recurso " + nombreRecurso + ".\n"
 						+ "Incidencia:\n" + incidencia;
 				String asunto = "TAS. Aviso de incidencia";
 				MimeMessage message = mail.createMimeMessage();
