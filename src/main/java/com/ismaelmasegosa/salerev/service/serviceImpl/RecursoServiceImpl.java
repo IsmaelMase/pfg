@@ -29,13 +29,27 @@ public class RecursoServiceImpl implements RecursoService {
 	private ReservaRepository reservaRepository;
 
 	@Autowired
+	@Qualifier("mailService")
+	private MailService mailService;
+
+	@Autowired
 	@Qualifier("recursoConverter")
 	private RecursoConverter recursoConverter;
 
 	@Override
 	public ResponseEntity<RecursoModel> addRecurso(RecursoModel r) {
 		try {
+			RecursoModel recursoOriginal = null;
+			if (!r.getId().equals("")) {
+				recursoOriginal = recursoConverter.converterEntityToModel(recursoRepository.findById(r.getId()).get());
+			}
 			Recurso rSave = recursoRepository.save(recursoConverter.converterModelToEntity(r));
+
+			if (recursoOriginal != null) {
+				if (!recursoOriginal.getIncidencia().equalsIgnoreCase(rSave.getIncidencia())) {
+					mailService.sendMailIncidencia(rSave.getNombre(), rSave.getIncidencia());
+				}
+			}
 
 			return new ResponseEntity<RecursoModel>(recursoConverter.converterEntityToModel(rSave), HttpStatus.CREATED);
 

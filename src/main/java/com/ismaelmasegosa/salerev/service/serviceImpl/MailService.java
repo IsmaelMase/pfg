@@ -11,6 +11,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.ismaelmasegosa.salerev.converter.UsuarioConverter;
+import com.ismaelmasegosa.salerev.entities.Usuario;
 import com.ismaelmasegosa.salerev.models.ChangePass;
 import com.ismaelmasegosa.salerev.models.UsuarioModel;
 import com.ismaelmasegosa.salerev.repository.UsuarioRepository;
@@ -59,6 +60,30 @@ public class MailService {
 			helper.setSubject(asunto);
 			mail.send(message);
 			return new ResponseEntity<String>(HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+		}
+
+	}
+
+	public ResponseEntity<String> sendMailIncidencia(String nombreRecurso, String incidencia) {
+
+		try {
+			UsuarioModel usuario;
+
+			for (Usuario u : usuarioRepository.findByRolAndEstado("ROL_ADMIN", true)) {
+				String mensaje = "Se ha notificado una incidencia en el aula/recurso" + nombreRecurso + ".\n"
+						+ "Incidencia:\n" + incidencia;
+				String asunto = "TAS. Aviso de incidencia";
+				MimeMessage message = mail.createMimeMessage();
+				MimeMessageHelper helper = new MimeMessageHelper(message);
+				helper.setTo(u.getEmail());
+				helper.setText(mensaje);
+				helper.setSubject(asunto);
+				mail.send(message);
+			}
+			return new ResponseEntity<String>(HttpStatus.OK);
+
 		} catch (Exception e) {
 			return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
 		}

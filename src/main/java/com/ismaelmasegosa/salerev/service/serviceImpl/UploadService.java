@@ -37,10 +37,10 @@ public class UploadService {
 			if (resource.exists() || resource.isReadable()) {
 				return resource;
 			} else {
-				throw new RuntimeException("FAIL!");
+				throw new RuntimeException("No se encontro la imagen");
 			}
 		} catch (MalformedURLException e) {
-			throw new RuntimeException("FAIL!");
+			throw new RuntimeException("Fallo");
 		}
 	}
 

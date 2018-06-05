@@ -38,7 +38,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 			} else {
 				String oldpasswordUsuario = usuarioRepository.findById(u.getId()).get().getPassword();
 
-				if (!oldpasswordUsuario.equals(u.getPassword())) {
+				if (!oldpasswordUsuario.equals(u.getPassword()) && !u.getPassword().equals("")) {
 					u.setPassword(passwordEncoder.encode(u.getPassword()));
 				}
 			}
