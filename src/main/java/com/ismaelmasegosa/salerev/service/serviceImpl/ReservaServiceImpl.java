@@ -215,15 +215,20 @@ public class ReservaServiceImpl implements ReservaService {
 		Query query = new Query();
 		fecha = fecha.replace("\"", "");
 		fecha = fecha.replace("-", "/");
+		// String fechaInicial = fecha.get(0).replace("\"", "").replace("-", "/");
+		// String fechaFinal = fecha.get(1).replace("\"", "").replace("-", "/");
 		query.addCriteria(Criteria.where("usuario.id").is(id));
-		if (fecha.equals("")) {
-			query.addCriteria(Criteria.where("fecha").gte(today));
-		} else {
-			query.addCriteria(Criteria.where("fecha").is(fecha));
-		}
+		// if (fecha.equals("")) {
+		// query.addCriteria(Criteria.where("fecha").gte(today));
+		// } else {
+		// query.addCriteria(Criteria.where("fecha").is(fecha));
+		// }
+		// query.addCriteria(Criteria.where("fecha").gte(fechaInicial).lte(fechaFinal));
+		query.addCriteria(Criteria.where("fecha").is(fecha));
+
 		query.with(new Sort(Sort.Direction.ASC, "fecha"));
 		query.with(new Sort(Sort.Direction.ASC, "intervalo"));
-		query.with(new PageRequest(skip, 20));
+		query.with(new PageRequest(skip, 60));
 		for (Reserva r : mongoTemplate.find(query, Reserva.class)) {
 			reservasModel.add(reservaConverter.converterEntityToModel(r));
 		}
@@ -240,11 +245,13 @@ public class ReservaServiceImpl implements ReservaService {
 		fecha = fecha.replace("\"", "");
 		fecha = fecha.replace("-", "/");
 		query.addCriteria(Criteria.where("recurso.id").is(id));
-		if (fecha.equals("")) {
-			query.addCriteria(Criteria.where("fecha").gte(today));
-		} else {
-			query.addCriteria(Criteria.where("fecha").is(fecha));
-		}
+		// if (fecha.equals("")) {
+		// query.addCriteria(Criteria.where("fecha").gte(today));
+		// } else {
+		// query.addCriteria(Criteria.where("fecha").is(fecha));
+		// }
+		query.addCriteria(Criteria.where("fecha").is(fecha));
+
 		query.with(new Sort(Sort.Direction.ASC, "fecha"));
 		query.with(new Sort(Sort.Direction.ASC, "intervalo"));
 		query.with(new PageRequest(skip, 100));

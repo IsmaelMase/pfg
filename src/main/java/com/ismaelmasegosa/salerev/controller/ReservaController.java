@@ -35,8 +35,8 @@ public class ReservaController {
 
 	@PostMapping(value = "/reservasByUsuario/{id}/{skip}")
 	public List<ReservaModel> getReservasByUsuario(@PathVariable("id") String id, @PathVariable("skip") int skip,
-			@Valid @RequestBody String fecha) {
-		return reservaService.findByUsuario(id, skip, fecha);
+			@Valid @RequestBody String fechas) {
+		return reservaService.findByUsuario(id, skip, fechas);
 	}
 
 	@PostMapping(value = "/reservasByRecurso/{id}/{skip}")
