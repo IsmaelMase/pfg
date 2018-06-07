@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.TreeMap;
@@ -237,28 +238,59 @@ public class ReservaServiceImpl implements ReservaService {
 
 	@Override
 	public List<ReservaModel> findByRecurso(String id, int skip, String fecha) {
-		final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-		final String today = LocalDate.now().format(formatter);
+		// final DateTimeFormatter formatter =
+		// DateTimeFormatter.ofPattern("yyyy/MM/dd");
+		// final String today = LocalDate.now().format(formatter);
+		// ArrayList<ReservaModel> reservasModel = new ArrayList<>();
+		// Query q = new BasicQuery("{ filter : true }");
+		// Query query = new Query();
+		// fecha = fecha.replace("\"", "");
+		// fecha = fecha.replace("-", "/");
+		// query.addCriteria(Criteria.where("recurso.id").is(id));
+		// // if (fecha.equals("")) {
+		// // query.addCriteria(Criteria.where("fecha").gte(today));
+		// // } else {
+		// // query.addCriteria(Criteria.where("fecha").is(fecha));
+		// // }
+		// query.addCriteria(Criteria.where("fecha").is(fecha));
+		//
+		// query.with(new Sort(Sort.Direction.ASC, "fecha"));
+		// query.with(new Sort(Sort.Direction.ASC, "intervalo"));
+		// query.with(new PageRequest(skip, 100));
+		// for (Reserva r : mongoTemplate.find(query, Reserva.class)) {
+		// reservasModel.add(reservaConverter.converterEntityToModel(r));
+		// }
+		// return reservasModel;
 		ArrayList<ReservaModel> reservasModel = new ArrayList<>();
-		Query q = new BasicQuery("{ filter : true }");
-		Query query = new Query();
+
+		Recurso r = recursoRespository.findById(id).get();
+		List<String> horas = r.getIntervalo().getIntervalos();
 		fecha = fecha.replace("\"", "");
 		fecha = fecha.replace("-", "/");
-		query.addCriteria(Criteria.where("recurso.id").is(id));
-		// if (fecha.equals("")) {
-		// query.addCriteria(Criteria.where("fecha").gte(today));
-		// } else {
-		// query.addCriteria(Criteria.where("fecha").is(fecha));
-		// }
-		query.addCriteria(Criteria.where("fecha").is(fecha));
+		Collections.sort(horas);
+		for (String hora : horas) {
+			Reserva reserva;
 
-		query.with(new Sort(Sort.Direction.ASC, "fecha"));
-		query.with(new Sort(Sort.Direction.ASC, "intervalo"));
-		query.with(new PageRequest(skip, 100));
-		for (Reserva r : mongoTemplate.find(query, Reserva.class)) {
-			reservasModel.add(reservaConverter.converterEntityToModel(r));
+			if (reservaRepository.findByRecursoAndFechaAndIntervalo(r, fecha, hora).size() == 0) {
+				reserva = null;
+			} else {
+				reserva = reservaRepository.findByRecursoAndFechaAndIntervalo(r, fecha, hora).get(0);
+			}
+
+			if (reserva != null) {
+				reservasModel.add(reservaConverter.converterEntityToModel(reserva));
+			} else {
+				ReservaModel reservaVacia = new ReservaModel();
+				reservaVacia.setRecurso(r);
+				reservaVacia.setFechas_reservas(new ArrayList<>());
+				reservaVacia.setIntervalos_reservas(new ArrayList<>());
+				reservaVacia.getFechas_reservas().add(fecha);
+				reservaVacia.getIntervalos_reservas().add(hora);
+				reservasModel.add(reservaVacia);
+			}
 		}
 		return reservasModel;
+
 	}
 
 	@Override

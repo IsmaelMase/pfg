@@ -46,7 +46,7 @@ public class HorarioServiceImpl implements HorarioService {
 	@Override
 	public ResponseEntity<HorarioModel> addIntervalo(HorarioModel in) {
 		try {
-			Collections.sort(in.intervalos.subList(1, in.intervalos.size()));
+			Collections.sort(in.intervalos);
 
 			Horario iSave = intervaloRepository.save(intervaloConverter.converterModelToEntity(in));
 
