@@ -19,6 +19,14 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 public class TokenAuthenticationService {
 
+	/**
+	 * Añade al response el token generado
+	 * 
+	 * @param res
+	 *            HttpServletResponse response
+	 * @param username
+	 *            String emailUsuario
+	 */
 	public static void addAuthentication(HttpServletResponse res, String username) {
 		String JWT = Jwts.builder().setSubject(username)
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
@@ -27,6 +35,13 @@ public class TokenAuthenticationService {
 
 	}
 
+	/**
+	 * Comprueba la autenticacion del token
+	 * 
+	 * @param request
+	 *            HttpServletRequest request
+	 * @return Authentication autenticacion
+	 */
 	public static Authentication getAuthentication(HttpServletRequest request) {
 		String token = request.getHeader(HEADER_STRING);
 		if (token != null) {

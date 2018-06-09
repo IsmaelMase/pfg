@@ -5,9 +5,21 @@ import org.springframework.stereotype.Component;
 import com.ismaelmasegosa.salerev.entities.Recurso;
 import com.ismaelmasegosa.salerev.models.RecursoModel;
 
+/**
+ * 
+ * @author Ismael Masegosa
+ *
+ */
 @Component("recursoConverter")
 public class RecursoConverter {
 
+	/**
+	 * Convertir de entidad a modelo
+	 * 
+	 * @param r
+	 *            Recurso
+	 * @return RecursoModel recurso
+	 */
 	public RecursoModel converterEntityToModel(Recurso r) {
 		RecursoModel rm = new RecursoModel();
 		if (!r.getId().isEmpty()) {
@@ -26,6 +38,13 @@ public class RecursoConverter {
 		return rm;
 	}
 
+	/**
+	 * Convertir de model a entidad
+	 * 
+	 * @param rm
+	 *            RecursoModel
+	 * @return RecursoModel recurso
+	 */
 	public Recurso converterModelToEntity(RecursoModel rm) {
 		Recurso r = new Recurso();
 		if (!rm.getId().isEmpty()) {

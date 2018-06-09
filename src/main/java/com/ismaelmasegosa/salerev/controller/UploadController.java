@@ -19,6 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.ismaelmasegosa.salerev.service.serviceImpl.UploadService;
 
+/**
+ * 
+ * @author Ismael Masegosa
+ *
+ */
 @RestController
 @RequestMapping("/api/upload")
 @CrossOrigin("*")
@@ -28,6 +33,13 @@ public class UploadController {
 
 	List<String> files = new ArrayList<String>();
 
+	/**
+	 * Guardar imagen
+	 * 
+	 * @param file
+	 *            imagen
+	 * @return ResponseEntity<String> response
+	 */
 	@PostMapping(value = "/saveFile")
 	public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
 		String message = "";
@@ -43,6 +55,13 @@ public class UploadController {
 		}
 	}
 
+	/**
+	 * Obtener imagen
+	 * 
+	 * @param filename
+	 *            nombre de la imagen
+	 * @return ResponseEntity<Resource>
+	 */
 	@GetMapping(value = "/files/{filename}")
 	public ResponseEntity<Resource> getFile(@PathVariable String filename) {
 		Resource file = storageService.loadFile(filename);

@@ -34,6 +34,13 @@ public class MailService {
 	@Qualifier("usuarioService")
 	private UsuarioServiceImpl usarioService;
 
+	/**
+	 * Notificar via email el cambio de contraseña
+	 * 
+	 * @param change
+	 *            ChangePass datos para el cambio de contraseña
+	 * @return ResponseEntity<String> response
+	 */
 	public ResponseEntity<String> sendMail(ChangePass change) {
 
 		try {
@@ -66,6 +73,15 @@ public class MailService {
 
 	}
 
+	/**
+	 * Notificar via email a los administradores la notificacion de una incidencia
+	 * 
+	 * @param nombreRecurso
+	 *            String nombre del recurso o aula
+	 * @param incidencia
+	 *            String incidencia
+	 * @return ResponseEntity<String> response
+	 */
 	public ResponseEntity<String> sendMailIncidencia(String nombreRecurso, String incidencia) {
 
 		try {

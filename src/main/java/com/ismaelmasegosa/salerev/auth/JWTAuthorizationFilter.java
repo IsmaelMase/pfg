@@ -19,8 +19,19 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 import io.jsonwebtoken.Jwts;
 
+/**
+ * 
+ * @author Ismael Masegosa
+ *
+ */
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
+	/**
+	 * Constructor para la autenticacion
+	 * 
+	 * @param authenticationManager
+	 *            AuthenticationManager
+	 */
 	public JWTAuthorizationFilter(AuthenticationManager authenticationManager) {
 		super(authenticationManager);
 	}
@@ -41,6 +52,13 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 		chain.doFilter(req, res);
 	}
 
+	/**
+	 * Comprueba la autenticacion mediante el token
+	 * 
+	 * @param request
+	 *            HttpServletRequest
+	 * @return UsernamePasswordAuthenticationToken
+	 */
 	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
 		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = null;
 		String token = request.getHeader(HEADER_STRING);

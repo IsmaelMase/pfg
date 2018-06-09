@@ -11,18 +11,77 @@ import com.ismaelmasegosa.salerev.entities.Usuario;
 
 public interface ReservaRepository extends MongoRepository<Reserva, String> {
 
+	/**
+	 * Bucar por usuario
+	 * 
+	 * @param usuario
+	 *            Usuario usuario
+	 * @return List<Reserva> reservas
+	 */
 	public List<Reserva> findByUsuario(Usuario usuario);
 
-	public List<Reserva> findByUsuarioAndFechaContains(Optional<Usuario> optional, String s);
+	/**
+	 * buscar por usuario y fecha
+	 * 
+	 * @param usuario
+	 *            Usuario usuario
+	 * @param fecha
+	 *            String fecha
+	 * @return List<Reserva> reservas
+	 */
+	public List<Reserva> findByUsuarioAndFechaContains(Optional<Usuario> usuario, String fecha);
 
+	/**
+	 * Buscar por recurso
+	 * 
+	 * @param recurso
+	 *            Recurso recurso
+	 * @return List<Reserva> reservas
+	 */
 	public List<Reserva> findByRecurso(Recurso recurso);
 
+	/**
+	 * Buscar el primero por recurso
+	 * 
+	 * @param recurso
+	 *            Recurso recurso
+	 * @return
+	 */
 	public List<Reserva> findFirstByRecurso(Recurso recurso);
 
+	/**
+	 * Buscar por intevalo y recurso
+	 * 
+	 * @param intervalo
+	 *            String intervalo
+	 * @param r
+	 *            Recurso recurso
+	 * @return List<Reserva> reservas
+	 */
 	public List<Reserva> findByIntervaloAndRecurso(String intervalo, Optional<Recurso> r);
 
-	public List<Reserva> findByRecursoAndFechaContains(Optional<Recurso> r, String s);
+	/**
+	 * Buscar por fecha y recurso
+	 * 
+	 * @param fecha
+	 *            String fecha
+	 * @param r
+	 *            Recurso recurso
+	 * @return List<Reserva> reservas
+	 */
+	public List<Reserva> findByRecursoAndFechaContains(Optional<Recurso> r, String fecha);
 
+	/**
+	 * Buscar por recurso fecha y hora
+	 * 
+	 * @param r
+	 *            Recurso recurso
+	 * @param fecha
+	 *            String fecha
+	 * @param hora
+	 *            String hora
+	 * @return List<Reserva> reservas
+	 */
 	public List<Reserva> findByRecursoAndFechaAndIntervalo(Recurso r, String fecha, String hora);
 
 }

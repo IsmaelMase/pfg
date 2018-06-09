@@ -7,12 +7,24 @@ import org.springframework.stereotype.Component;
 import com.ismaelmasegosa.salerev.entities.Usuario;
 import com.ismaelmasegosa.salerev.models.UsuarioModel;
 
+/**
+ * 
+ * @author Ismael Masegosa
+ *
+ */
 @Component("usuarioConverter")
 public class UsuarioConverter {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	/**
+	 * Convertir de entidad a model
+	 * 
+	 * @param u
+	 *            Usuario usuario
+	 * @return UsuarioModel usuario
+	 */
 	public UsuarioModel converterEntityToModel(Usuario u) {
 		UsuarioModel um = new UsuarioModel();
 		if (!u.id.isEmpty()) {
@@ -31,6 +43,13 @@ public class UsuarioConverter {
 		return um;
 	}
 
+	/**
+	 * Convertir de modelo a entidad
+	 * 
+	 * @param um
+	 *            UsuarioModel
+	 * @return Usuario usuario
+	 */
 	public Usuario converterModelToEntity(UsuarioModel um) {
 		Usuario u = new Usuario();
 		if (!um.id.isEmpty()) {

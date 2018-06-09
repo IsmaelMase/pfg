@@ -5,8 +5,20 @@ import org.springframework.stereotype.Component;
 import com.ismaelmasegosa.salerev.entities.Horario;
 import com.ismaelmasegosa.salerev.models.HorarioModel;
 
+/**
+ * 
+ * @author Ismael Masegosa
+ *
+ */
 @Component("intervaloConverter")
 public class HorarioConverter {
+	/**
+	 * Convertir de entidad a modelo
+	 * 
+	 * @param i
+	 *            Horario
+	 * @return HorarioModel horario
+	 */
 	public HorarioModel converterEntityToModel(Horario i) {
 		HorarioModel im = new HorarioModel();
 		if (!i.id.isEmpty()) {
@@ -18,6 +30,13 @@ public class HorarioConverter {
 		return im;
 	}
 
+	/**
+	 * Convertir de model a entidad
+	 * 
+	 * @param im
+	 *            HorarioModel
+	 * @return Horario horario
+	 */
 	public Horario converterModelToEntity(HorarioModel im) {
 		Horario i = new Horario();
 		if (!im.id.isEmpty()) {

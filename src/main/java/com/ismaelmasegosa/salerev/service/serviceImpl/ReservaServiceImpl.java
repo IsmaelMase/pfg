@@ -67,12 +67,14 @@ public class ReservaServiceImpl implements ReservaService {
 			r.getFechas_reservas().stream().forEach((f) -> {
 				r.getIntervalos_reservas().stream().forEach((i) -> {
 					Reserva reserva;
+					// se comprueba si existe la reserva
 					List<Reserva> reservasExistentes = reservaRepository
 							.findByRecursoAndFechaAndIntervalo(r.getRecurso(), f, i);
 					if (reservasExistentes.size() == 0) {
 						reserva = reservaRepository.save(reservaConverter.converterModelToEntity(r, f, i));
 						reservas.add(reservaConverter.converterEntityToModel(reserva));
 					} else {
+						// se comprueba si es una modificacion
 						if (reservasExistentes.get(0).getId().equals(r.getId())) {
 							reserva = reservaRepository.save(reservaConverter.converterModelToEntity(r, f, i));
 							reservas.add(reservaConverter.converterEntityToModel(reserva));
@@ -117,6 +119,7 @@ public class ReservaServiceImpl implements ReservaService {
 	@Override
 	public List<String> getFechasNoDisponibles(List<String> horas, String idRecurso) {
 		List<String> fechas_NoDisponibles = new ArrayList<String>();
+		// se obtiene las reservas a las horas indicadas y se recogen las fechas
 		for (String hora : horas) {
 			for (Reserva reserva : reservaRepository.findByIntervaloAndRecurso(hora,
 					recursoRespository.findById(idRecurso))) {
@@ -149,13 +152,16 @@ public class ReservaServiceImpl implements ReservaService {
 		Recurso re = recursoRespository.findById(id).get();
 		SimpleDateFormat fromUser = new SimpleDateFormat("yyyy/MM/dd");
 		SimpleDateFormat myFormat = new SimpleDateFormat("dd/MM/yyyy");
+		// se recorren todas las horas del horario del recurso
 		for (String hora : re.getIntervalo().getIntervalos()) {
 			cont++;
 			reservasTabla = new ArrayList<>();
 			reservasTabla.add(hora);
+			// se recorren todas las fechas y se obtienen las reservas
 			for (String fecha : fechas) {
 				List<Reserva> reservas = reservaRepository.findByRecursoAndFechaAndIntervalo(re, fecha, hora);
 				if (reservas.size() > 0) {
+					// se recorren las reservas y se añaden al array
 					for (Reserva r : reservas) {
 						if (r != null) {
 							reservasTabla.add(r.getUsuario().getNombre() + " " + r.getCurso().getNombre());
@@ -181,7 +187,7 @@ public class ReservaServiceImpl implements ReservaService {
 	}
 
 	@Override
-	public List<String> getHorasNoDisponibles(String fecha, String idRecurso) {
+	public List<String> getHorasDisponibles(String fecha, String idRecurso) {
 		Optional<Recurso> re = recursoRespository.findById(idRecurso);
 		List<String> intervalos = re.get().getIntervalo().getIntervalos();
 		fecha = fecha.replace("\"", "");
@@ -218,6 +224,10 @@ public class ReservaServiceImpl implements ReservaService {
 		fecha = fecha.replace("-", "/");
 		// String fechaInicial = fecha.get(0).replace("\"", "").replace("-", "/");
 		// String fechaFinal = fecha.get(1).replace("\"", "").replace("-", "/");
+		/*
+		 * se crea una query donde el id del usuario sea el introducido y la fecha la
+		 * introducida
+		 */
 		query.addCriteria(Criteria.where("usuario.id").is(id));
 		// if (fecha.equals("")) {
 		// query.addCriteria(Criteria.where("fecha").gte(today));
@@ -268,6 +278,7 @@ public class ReservaServiceImpl implements ReservaService {
 		fecha = fecha.replace("\"", "");
 		fecha = fecha.replace("-", "/");
 		Collections.sort(horas);
+		// se recorren las horas del horario del recurso
 		for (String hora : horas) {
 			Reserva reserva;
 
@@ -276,7 +287,7 @@ public class ReservaServiceImpl implements ReservaService {
 			} else {
 				reserva = reservaRepository.findByRecursoAndFechaAndIntervalo(r, fecha, hora).get(0);
 			}
-
+			// se comprueba si esta libre la reserva o no
 			if (reserva != null) {
 				reservasModel.add(reservaConverter.converterEntityToModel(reserva));
 			} else {

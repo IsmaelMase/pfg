@@ -17,6 +17,14 @@ import org.springframework.web.multipart.MultipartFile;
 public class UploadService {
 	private final Path rootLocation = Paths.get("src/main/resources/upload-dir");
 
+	/**
+	 * 
+	 * Guarda en el directorio la imagen recibida
+	 * 
+	 * @param file
+	 *            MultipartFile imagen
+	 * @return ResponseEntity<String> response
+	 */
 	public ResponseEntity<String> store(MultipartFile file) {
 		try {
 			if (Files.exists(Paths.get("src/main/resources/upload-dir" + file.getOriginalFilename()))) {
@@ -30,6 +38,13 @@ public class UploadService {
 		}
 	}
 
+	/**
+	 * Devuelve una imagen
+	 * 
+	 * @param filename
+	 *            String nombre de la imagen
+	 * @return Resource imagen
+	 */
 	public Resource loadFile(String filename) {
 		try {
 			Path file = rootLocation.resolve(filename);
@@ -44,6 +59,9 @@ public class UploadService {
 		}
 	}
 
+	/**
+	 * Inicializa el directorio
+	 */
 	public void init() {
 		try {
 			if (!Files.exists(rootLocation)) {

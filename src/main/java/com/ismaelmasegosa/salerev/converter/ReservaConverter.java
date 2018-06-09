@@ -7,9 +7,21 @@ import org.springframework.stereotype.Component;
 import com.ismaelmasegosa.salerev.entities.Reserva;
 import com.ismaelmasegosa.salerev.models.ReservaModel;
 
+/**
+ * 
+ * @author Ismael Masegosa
+ *
+ */
 @Component("reservaConverter")
 public class ReservaConverter {
 
+	/**
+	 * Convertir de entidad a modelo
+	 * 
+	 * @param r
+	 *            Reserva
+	 * @return ReservaModel reserva
+	 */
 	public ReservaModel converterEntityToModel(Reserva r) {
 		ReservaModel rm = new ReservaModel();
 		if (!r.getId().isEmpty()) {
@@ -27,6 +39,17 @@ public class ReservaConverter {
 
 	}
 
+	/**
+	 * Convertir de modelo a entidad
+	 * 
+	 * @param rm
+	 *            RecursoModel recurso
+	 * @param fecha
+	 *            String fecha de la reserva
+	 * @param intervalo
+	 *            String intervalo de la reserva
+	 * @return Reserva reserva
+	 */
 	public Reserva converterModelToEntity(ReservaModel rm, String fecha, String intervalo) {
 
 		Reserva r = new Reserva();

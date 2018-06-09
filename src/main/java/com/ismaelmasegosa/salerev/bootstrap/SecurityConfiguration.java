@@ -26,6 +26,11 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.ismaelmasegosa.salerev.auth.JWTAuthorizationFilter;
 
+/**
+ * 
+ * @author Ismael Masegosa
+ *
+ */
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 

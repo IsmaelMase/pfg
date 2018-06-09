@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ismaelmasegosa.salerev.models.ChangePass;
 import com.ismaelmasegosa.salerev.service.serviceImpl.MailService;
 
+/**
+ * 
+ * @author Ismael Masegosa
+ *
+ */
 @RestController
 @RequestMapping("/api/mail")
 @CrossOrigin("*")
@@ -20,6 +25,13 @@ public class MailController {
 	@Qualifier("mailService")
 	private MailService mailService;
 
+	/**
+	 * Enviar email
+	 * 
+	 * @param change
+	 *            String datos enviar email
+	 * @return ResponseEntity<String> response entity
+	 */
 	@PostMapping(value = "/sendMail")
 	public ResponseEntity<String> sendMail(@RequestBody ChangePass change) {
 		return mailService.sendMail(change);

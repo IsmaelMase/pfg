@@ -1,0 +1,10 @@
+com.ismaelmasegosa.salerev
+com.ismaelmasegosa.salerev.auth
+com.ismaelmasegosa.salerev.bootstrap
+com.ismaelmasegosa.salerev.controller
+com.ismaelmasegosa.salerev.converter
+com.ismaelmasegosa.salerev.entities
+com.ismaelmasegosa.salerev.models
+com.ismaelmasegosa.salerev.repository
+com.ismaelmasegosa.salerev.service
+com.ismaelmasegosa.salerev.service.serviceImpl
