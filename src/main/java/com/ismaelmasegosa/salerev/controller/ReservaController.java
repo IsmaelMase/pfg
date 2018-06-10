@@ -61,10 +61,9 @@ public class ReservaController {
 	 *            String fecha
 	 * @return List<ReservaModel> reservas por recurso
 	 */
-	@PostMapping(value = "/reservasByRecurso/{id}/{skip}")
-	public List<ReservaModel> getReservasByRecurso(@PathVariable("id") String id, @PathVariable("skip") int skip,
-			@Valid @RequestBody String fecha) {
-		return reservaService.findByRecurso(id, skip, fecha);
+	@PostMapping(value = "/reservasByRecurso/{id}")
+	public List<ReservaModel> getReservasByRecurso(@PathVariable("id") String id, @Valid @RequestBody String fecha) {
+		return reservaService.findByRecurso(id, fecha);
 	}
 
 	/**

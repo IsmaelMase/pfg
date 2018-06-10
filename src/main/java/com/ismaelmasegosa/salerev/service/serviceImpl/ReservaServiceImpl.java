@@ -247,7 +247,7 @@ public class ReservaServiceImpl implements ReservaService {
 	}
 
 	@Override
-	public List<ReservaModel> findByRecurso(String id, int skip, String fecha) {
+	public List<ReservaModel> findByRecurso(String id, String fecha) {
 		// final DateTimeFormatter formatter =
 		// DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		// final String today = LocalDate.now().format(formatter);

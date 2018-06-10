@@ -38,7 +38,7 @@ public interface ReservaService {
 	 *            String fecha
 	 * @return List<ReservaModel> reservas
 	 */
-	public List<ReservaModel> findByRecurso(String id, int skip, String fecha);
+	public List<ReservaModel> findByRecurso(String id, String fecha);
 
 	/**
 	 * Devuelve reservas ocupadas por usuario y fecha.
