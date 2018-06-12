@@ -62,6 +62,7 @@ public class ReservaServiceImpl implements ReservaService {
 	public ResponseEntity<List<ReservaModel>> addReserva(ReservaModel r) {
 		List<ReservaModel> reservas = new ArrayList<>();
 		List<ReservaModel> reservasNoRealizadas = new ArrayList<>();
+		List<ReservaModel> reservasOcupadasUsuario = new ArrayList<>();
 
 		try {
 			r.getFechas_reservas().stream().forEach((f) -> {
@@ -70,9 +71,20 @@ public class ReservaServiceImpl implements ReservaService {
 					// se comprueba si existe la reserva
 					List<Reserva> reservasExistentes = reservaRepository
 							.findByRecursoAndFechaAndIntervalo(r.getRecurso(), f, i);
+					List<Reserva> reservasUsuario = reservaRepository.findByUsuarioAndFechaAndIntervalo(r.getUsuario(),
+							f, i);
+
 					if (reservasExistentes.size() == 0) {
-						reserva = reservaRepository.save(reservaConverter.converterModelToEntity(r, f, i));
-						reservas.add(reservaConverter.converterEntityToModel(reserva));
+						for (Reserva reservaUsuario : reservasUsuario) {
+							if (reservaUsuario.getRecurso().getTipo().equalsIgnoreCase("a")
+									&& r.getRecurso().getTipo().equalsIgnoreCase("a")) {
+								reservasOcupadasUsuario.add(reservaConverter.converterEntityToModel(reservaUsuario));
+							}
+						}
+						if (reservasOcupadasUsuario.size() == 0) {
+							reserva = reservaRepository.save(reservaConverter.converterModelToEntity(r, f, i));
+							reservas.add(reservaConverter.converterEntityToModel(reserva));
+						}
 					} else {
 						// se comprueba si es una modificacion
 						if (reservasExistentes.get(0).getId().equals(r.getId())) {
@@ -89,6 +101,8 @@ public class ReservaServiceImpl implements ReservaService {
 
 			if (reservasNoRealizadas.size() > 0) {
 				return new ResponseEntity<List<ReservaModel>>(reservasNoRealizadas, HttpStatus.CONFLICT);
+			} else if (reservasOcupadasUsuario.size() > 0) {
+				return new ResponseEntity<List<ReservaModel>>(reservasOcupadasUsuario, HttpStatus.FOUND);
 			} else {
 				return new ResponseEntity<List<ReservaModel>>(reservas, HttpStatus.CREATED);
 			}

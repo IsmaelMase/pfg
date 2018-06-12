@@ -84,4 +84,17 @@ public interface ReservaRepository extends MongoRepository<Reserva, String> {
 	 */
 	public List<Reserva> findByRecursoAndFechaAndIntervalo(Recurso r, String fecha, String hora);
 
+	/**
+	 * Buscar por usuario fecha y hora
+	 * 
+	 * @param u
+	 *            Usuario Usuario
+	 * @param fecha
+	 *            String fecha
+	 * @param hora
+	 *            String hora
+	 * @return List<Reserva> reservas
+	 */
+	public List<Reserva> findByUsuarioAndFechaAndIntervalo(Usuario u, String fecha, String hora);
+
 }
