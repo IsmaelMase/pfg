@@ -236,19 +236,13 @@ public class ReservaServiceImpl implements ReservaService {
 		Query query = new Query();
 		fecha = fecha.replace("\"", "");
 		fecha = fecha.replace("-", "/");
-		// String fechaInicial = fecha.get(0).replace("\"", "").replace("-", "/");
-		// String fechaFinal = fecha.get(1).replace("\"", "").replace("-", "/");
+
 		/*
 		 * se crea una query donde el id del usuario sea el introducido y la fecha la
 		 * introducida
 		 */
 		query.addCriteria(Criteria.where("usuario.id").is(id));
-		// if (fecha.equals("")) {
-		// query.addCriteria(Criteria.where("fecha").gte(today));
-		// } else {
-		// query.addCriteria(Criteria.where("fecha").is(fecha));
-		// }
-		// query.addCriteria(Criteria.where("fecha").gte(fechaInicial).lte(fechaFinal));
+
 		query.addCriteria(Criteria.where("fecha").is(fecha));
 
 		query.with(new Sort(Sort.Direction.ASC, "fecha"));
@@ -262,29 +256,6 @@ public class ReservaServiceImpl implements ReservaService {
 
 	@Override
 	public List<ReservaModel> findByRecurso(String id, String fecha) {
-		// final DateTimeFormatter formatter =
-		// DateTimeFormatter.ofPattern("yyyy/MM/dd");
-		// final String today = LocalDate.now().format(formatter);
-		// ArrayList<ReservaModel> reservasModel = new ArrayList<>();
-		// Query q = new BasicQuery("{ filter : true }");
-		// Query query = new Query();
-		// fecha = fecha.replace("\"", "");
-		// fecha = fecha.replace("-", "/");
-		// query.addCriteria(Criteria.where("recurso.id").is(id));
-		// // if (fecha.equals("")) {
-		// // query.addCriteria(Criteria.where("fecha").gte(today));
-		// // } else {
-		// // query.addCriteria(Criteria.where("fecha").is(fecha));
-		// // }
-		// query.addCriteria(Criteria.where("fecha").is(fecha));
-		//
-		// query.with(new Sort(Sort.Direction.ASC, "fecha"));
-		// query.with(new Sort(Sort.Direction.ASC, "intervalo"));
-		// query.with(new PageRequest(skip, 100));
-		// for (Reserva r : mongoTemplate.find(query, Reserva.class)) {
-		// reservasModel.add(reservaConverter.converterEntityToModel(r));
-		// }
-		// return reservasModel;
 		ArrayList<ReservaModel> reservasModel = new ArrayList<>();
 
 		Recurso r = recursoRespository.findById(id).get();
