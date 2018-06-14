@@ -1,7 +1,8 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://admin:salesianas1234@ds245680.mlab.com:45680/salerev
+      database: salerev
+      uri: mongodb://mongo:27017
   servlet:
     multipart:
       max-file-size: 1000MB
