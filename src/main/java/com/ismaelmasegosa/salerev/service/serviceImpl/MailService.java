@@ -59,7 +59,7 @@ public class MailService {
 
 			String mensaje = "Le comunicamos que la contraseña de acceso ha sido cambiada por petición del usuario.\n"
 					+ "Su nueva contraseña es: " + change.getPass();
-			String asunto = "TAS. Aviso cambio de contraseña";
+			String asunto = "SalesRev. Aviso cambio de contraseña";
 			MimeMessage message = mail.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(message);
 			helper.setTo(change.getEmail());
@@ -90,7 +90,7 @@ public class MailService {
 			for (Usuario u : usuarioRepository.findByRolAndEstado("ROL_ADMIN", true)) {
 				String mensaje = "Se ha notificado una incidencia en el aula/recurso " + nombreRecurso + ".\n"
 						+ "Incidencia:\n" + incidencia;
-				String asunto = "TAS. Aviso de incidencia";
+				String asunto = "SalesRev. Aviso de incidencia";
 				MimeMessage message = mail.createMimeMessage();
 				MimeMessageHelper helper = new MimeMessageHelper(message);
 				helper.setTo(u.getEmail());
