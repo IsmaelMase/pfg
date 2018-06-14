@@ -5,12 +5,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.ismaelmasegosa</groupId>
-	<artifactId>salerev</artifactId>
+	<artifactId>salesrev</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>salerev</name>
-	<description>Demo project for Spring Boot</description>
+	<name>salesrev_ismael_masegosa</name>
+	<description>App de reservas</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
